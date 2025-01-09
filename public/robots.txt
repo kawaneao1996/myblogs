@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://kawaneao1996.github.io/sitemap.xml
+Sitemap: https://kawaneao1996.github.io/blog/sitemap.xml

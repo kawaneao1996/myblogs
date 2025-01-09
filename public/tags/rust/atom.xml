@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
     <title> - Rust</title>
-    <link rel="self" type="application/atom+xml" href="https://kawaneao1996.github.io/tags/rust/atom.xml"/>
-    <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io"/>
+    <link rel="self" type="application/atom+xml" href="https://kawaneao1996.github.io/blog/tags/rust/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2025-01-07T00:00:00+00:00</updated>
-    <id>https://kawaneao1996.github.io/tags/rust/atom.xml</id>
+    <id>https://kawaneao1996.github.io/blog/tags/rust/atom.xml</id>
     <entry xml:lang="en">
         <title>zolaで始めるブログ</title>
         <published>2025-01-07T00:00:00+00:00</published>
@@ -19,10 +19,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog/start-blog/"/>
-        <id>https://kawaneao1996.github.io/blog/start-blog/</id>
+        <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog/blogs/start-blog/"/>
+        <id>https://kawaneao1996.github.io/blog/blogs/start-blog/</id>
         
-        <content type="html" xml:base="https://kawaneao1996.github.io/blog/start-blog/">&lt;h2 id=&quot;ji-shu-sutatuku&quot;&gt;技術スタック&lt;&#x2F;h2&gt;
+        <content type="html" xml:base="https://kawaneao1996.github.io/blog/blogs/start-blog/">&lt;h2 id=&quot;ji-shu-sutatuku&quot;&gt;技術スタック&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;ssghuremuwaku&quot;&gt;SSGフレームワーク&lt;&#x2F;h3&gt;
 &lt;p&gt;→&lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;&quot;&gt;zola&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
 &lt;p&gt;以下特徴：&lt;&#x2F;p&gt;
