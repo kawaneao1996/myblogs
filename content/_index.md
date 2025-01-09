@@ -1,4 +1,4 @@
 +++
 +++
 
-- 🥣 [Overview Post](./blog/overview-post)
+- 🥣 [ブログ一覧](./blog/overview-post)
