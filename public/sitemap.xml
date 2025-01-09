@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>https://kawaneao1996.github.io/</loc>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/blog/</loc>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/blog/exam/</loc>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/blog/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/blog/start-blog/</loc>
+        <lastmod>2025-01-07</lastmod>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/tags/</loc>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/tags/rust/</loc>
+    </url>
+    <url>
+        <loc>https://kawaneao1996.github.io/tags/zola/</loc>
+    </url>
+</urlset>
