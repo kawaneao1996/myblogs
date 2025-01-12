@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title> - ebook</title>
+    <link rel="self" type="application/atom+xml" href="https://kawaneao1996.github.io/blog/tags/ebook/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-01-12T00:00:00+00:00</updated>
+    <id>https://kawaneao1996.github.io/blog/tags/ebook/atom.xml</id>
+    <entry xml:lang="en">
+        <title>電子書籍サービスの比較</title>
+        <published>2025-01-12T00:00:00+00:00</published>
+        <updated>2025-01-12T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog/blogs/ebook-comparision/"/>
+        <id>https://kawaneao1996.github.io/blog/blogs/ebook-comparision/</id>
+        
+        <content type="html" xml:base="https://kawaneao1996.github.io/blog/blogs/ebook-comparision/">&lt;h2 id=&quot;yao-yue&quot;&gt;要約&lt;&#x2F;h2&gt;
+&lt;p&gt;自分が技術書を電子で買う時に選ぶサービスの優先順位&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog&#x2F;blogs&#x2F;ebook-comparision&#x2F;bHWT_MwaaP3mSYE&quot;&gt;SEShop&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;pdfで書籍のダウンロードができる&lt;&#x2F;li&gt;
+&lt;li&gt;クーポンやセールを利用するとポイントを利用して半額で買えたりする&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;honto.jp&#x2F;&quot;&gt;honto&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;専用のアプリかブラウザで閲覧&lt;&#x2F;li&gt;
+&lt;li&gt;ブラウザに対応していない書籍もあり&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;kindle&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;安パイだけど重いし、Linuxで見れない&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;
+&lt;p&gt;unext&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;ブラウザだけだが、軽いのでストレスはない&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;h2 id=&quot;konoji-shi-woshu-itajing-wei&quot;&gt;この記事を書いた経緯&lt;&#x2F;h2&gt;
+&lt;p&gt;自分はソフトウェアエンジニアとして書籍から学習することが多い。&lt;&#x2F;p&gt;
+&lt;p&gt;その際に内容の賞味期限が長いものは紙で買い、ライブラリやフレームワーク
+に関連する等のすぐに情報が古くなるものは電子書籍で買うことにしている。&lt;&#x2F;p&gt;
+&lt;p&gt;このような考えの人向けに、現状自分が技術書を電子で買う際のプラットフォームの優先順位を書いてみた（とはいえ4つだけだが）。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ge-sabisunosuo-gan&quot;&gt;各サービスの所感&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;ping-jia-ji-zhun-shi-yang-duan-mo&quot;&gt;評価基準・仕様端末&lt;&#x2F;h3&gt;
+&lt;p&gt;自分の中の要望として、以下がある。&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;ベンダロックインしない形式でダウンロードしたい（pdfなど）
+&lt;ul&gt;
+&lt;li&gt;サービス終了が怖いので、永続的に閲覧可能な形式が良い&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;li&gt;専用のアプリはLinuxでも出すか、全書籍をブラウザで見れるようにしてほしい
+&lt;ul&gt;
+&lt;li&gt;ソフトウェアの技術書を買う人はLinuxを使ってる人が多いのでは？&lt;&#x2F;li&gt;
+&lt;li&gt;アプリのインストール、アップデートは手間
+&lt;ul&gt;
+&lt;li&gt;アップデート後に再ログインさせられるのは苦痛&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;上記の要望をもとに、以下に各サービスを比較する。&lt;&#x2F;p&gt;
+&lt;p&gt;あと補足として自分の端末はもっぱらPCでたまにiPad。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;seshop&quot;&gt;SEShop&lt;&#x2F;h3&gt;
+&lt;p&gt;まず書籍をpdfで買えると言うのがSEShopのいいところだと思う。&lt;&#x2F;p&gt;
+&lt;p&gt;ダウンロードしたpdfのフッターに小さく透かしで購入者のメールアドレスが埋め込まれるが、閲覧に問題はない。&lt;&#x2F;p&gt;
+&lt;p&gt;pdf形式なのでデバイスによらず閲覧できてとてもいい。&lt;&#x2F;p&gt;
+&lt;p&gt;あとたまに40%, 50%といったポイントがつくセールをやっていたり、クーポンを配布したりしている。かなりお得に買えるので、上記の情報が配信されるメルマガは登録するのがおすすめ。&lt;&#x2F;p&gt;
+&lt;p&gt;欠点は今のところない。翔泳社以外の書籍は置いてないが、まあ書店のサービスではないので。&lt;&#x2F;p&gt;
+&lt;p&gt;自分としてはとてもいいサービスだと思っているので、続いてほしいと思う。&lt;&#x2F;p&gt;
+&lt;p&gt;ちなみに回し者ではない。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;honto&quot;&gt;honto&lt;&#x2F;h3&gt;
+&lt;p&gt;ePubで買えるというので使ってみた。&lt;&#x2F;p&gt;
+&lt;p&gt;閲覧方法は２つ。アプリかブラウザか。&lt;&#x2F;p&gt;
+&lt;p&gt;でもブラウザに対応していない書籍もあるので、メインはアプリを
+インストールして読むになる。&lt;&#x2F;p&gt;
+&lt;p&gt;Linuxにはアプリがないのが不満。あと書籍によってはブラウザで見れないのはちょっと嫌（kindleもそう）。&lt;&#x2F;p&gt;
+&lt;p&gt;ただ、アプリのUIはいいと思う。kindleより使いやすい。
+支払いにPayPayが使えるのも個人的にいい。&lt;&#x2F;p&gt;
+&lt;p&gt;トータルで購入から閲覧までのUXはkindleよりもいいと思う。おすすめが表示されるタイミングや頻度も控えめでいい感じ。&lt;&#x2F;p&gt;
+&lt;p&gt;ただ閲覧はアプリ依存で、kindleほど大手ではないという不安がある。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;kindle&quot;&gt;kindle&lt;&#x2F;h3&gt;
+&lt;p&gt;Amazonが潰れたら見れなくなる（紙の本とほぼ同じ値段なのに！）、アプリが重い（個人的感想）、
+Linuxのアプリがない（頑張れば見れるらしいが正規の方法ではないので、使えなくなったりもするだろう）、おすすめの本とかで広告が出てくる、といった悪い印象しかない。&lt;&#x2F;p&gt;
+&lt;p&gt;おすすめはあってもいいけど、出し過ぎはうるさいよね。せめて非表示を選ばせてほしい。正直kindleはUI&#x2F;UXが悪いと思う。&lt;&#x2F;p&gt;
+&lt;p&gt;しかし品揃えはいいから、結局これになる場合が多い。&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;unext&quot;&gt;unext&lt;&#x2F;h3&gt;
+&lt;p&gt;ダウンロードはない。ただブラウザでの閲覧が軽くてUIも使いやすい。
+ライトな感想しかないが、そんなところ。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;matome&quot;&gt;まとめ&lt;&#x2F;h2&gt;
+&lt;p&gt;正直、自分の知らない電子書籍のサービスはまだあると思うし、この順位の妥当性にも議論の余地があると思う。&lt;&#x2F;p&gt;
+&lt;p&gt;とはいえ今の自分の中の正直な順位であって、これから電子書籍サービスを比較している方の参考になればと思う。&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;she-zu&quot;&gt;蛇足&lt;&#x2F;h2&gt;
+&lt;p&gt;余談だが、これから電子書籍サービスの使い勝手が向上するためにはネット上でのアイデンティティや著作物の取り扱いについての技術革新が必要になると思う。&lt;&#x2F;p&gt;
+&lt;p&gt;日本ではWeb3.0は詐欺師のバズワード化してるが、その中に分散型アイデンティティ（DID）、検証可能なクレデンシャル（VC）の仕様があってそこらへんはこういった問題に有効だと自分は思っていたりする。&lt;&#x2F;p&gt;
+&lt;p&gt;まあ、仮にそういう革新があったとしても異なる出版社をまとめてプラットフォームに組み込むのが大変なのかもしれないが。日本人は個人や各社レベルでの頑張りは得意だけど、プラットォーム化するのは下手だよなっていうこれは完全に個人的偏見。ルールや市場、標準仕様を作り運営することで管理する側の特権を得るみたいな勝ち方はヨーロッパやアメリカの人の方が上手いね。中国も標準化や仕様については力を入れるが、やり方が強引になる印象。審査員を買収したり、あるいは自国の人間んで審査員を固めたりとか。&lt;&#x2F;p&gt;
+&lt;p&gt;とはいえ、日本人から一人でもいいのでそういう勝ち方ができる人間が出て来ればことコンテンツ業界では自国が強いのでゲームチェンジできる気がしているし、それを実行できる環境が時代の流れとして生まれてきている気がしているのは私だけでしょうか？&lt;&#x2F;p&gt;
+&lt;p&gt;ただあからさまにこういう勝ち方をしてしまうと欧米資本に潰されるのが目に見えているので何か工夫は必要そう。&lt;&#x2F;p&gt;
+&lt;p&gt;ここまで書いて完全に頭がおかしい人と思われてそうだが、そう思った人は見なかったことにしてもらって…。蛇足でした。&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
