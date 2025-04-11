@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://kawaneao1996.github.io/myblog"
+base_url = "https://kawaneao1996.github.io/myblogs"
 
 taxonomies = [{ name = "tags", feed = true }]
 
@@ -19,7 +19,7 @@ highlight_code = true
 [extra]
 # Put all your custom variables here
 header_nav = [
-    { name_en = "Home", url = "https://kawaneao1996.github.io/myblog" },
-    { name_en = "Blog", url = "https://kawaneao1996.github.io/myblog/blogs" },
-    { name_en = "About", url = "https://kawaneao1996.github.io/myblog/about" },
+    { name_en = "Home", url = "https://kawaneao1996.github.io/myblogs" },
+    { name_en = "Blog", url = "https://kawaneao1996.github.io/myblogs/blogs" },
+    { name_en = "About", url = "https://kawaneao1996.github.io/myblogs/about" },
 ]
