@@ -1,108 +1,213 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-    <title> - Rust</title>
-    <link rel="self" type="application/atom+xml" href="https://kawaneao1996.github.io/blog/tags/rust/atom.xml"/>
-    <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog"/>
-    <generator uri="https://www.getzola.org/">Zola</generator>
-    <updated>2025-01-07T00:00:00+00:00</updated>
-    <id>https://kawaneao1996.github.io/blog/tags/rust/atom.xml</id>
-    <entry xml:lang="en">
-        <title>zolaで始めるブログ</title>
-        <published>2025-01-07T00:00:00+00:00</published>
-        <updated>2025-01-07T00:00:00+00:00</updated>
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title></title>
+    <link href="https://kawaneao1996.github.io/blog/atom.xml" rel="self"/>
+    <link href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog"/>
+    <updated>2025-04-11T23:43:19+0900</updated>
+    <id>https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog</id>
+
+    
+    
+    
+    
         
-        <author>
-          <name>
+    
+    
+    
+        
+        
             
-              Unknown
-            
-          </name>
-        </author>
-        
-        <link rel="alternate" type="text/html" href="https://kawaneao1996.github.io/blog/blogs/start-blog/"/>
-        <id>https://kawaneao1996.github.io/blog/blogs/start-blog/</id>
-        
-        <content type="html" xml:base="https://kawaneao1996.github.io/blog/blogs/start-blog/">&lt;h2 id=&quot;ji-shu-sutatuku&quot;&gt;技術スタック&lt;&#x2F;h2&gt;
-&lt;h3 id=&quot;ssghuremuwaku&quot;&gt;SSGフレームワーク&lt;&#x2F;h3&gt;
-&lt;p&gt;→&lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;&quot;&gt;zola&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
-&lt;p&gt;以下特徴：&lt;&#x2F;p&gt;
-&lt;ul&gt;
-&lt;li&gt;Rust製のSSGフレームワーク&lt;&#x2F;li&gt;
-&lt;li&gt;markdownで記事を書くことができる&lt;&#x2F;li&gt;
-&lt;li&gt;Rust製だから早い&lt;&#x2F;li&gt;
-&lt;li&gt;有志のテーマが充実（個人的感想）&lt;&#x2F;li&gt;
-&lt;li&gt;日本語のドキュメントがほぼないのがちょっとマイナス
-&lt;ul&gt;
-&lt;li&gt;でもmermaidの導入とか日本語の記事があったり
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;tech.yukashikado.co.jp&#x2F;posts&#x2F;powered-by-zola&#x2F;&quot;&gt;Rust製のZolaでテックブログをつくった感想&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;h3 id=&quot;shi-yong-tema&quot;&gt;使用テーマ&lt;&#x2F;h3&gt;
-&lt;p&gt;→&lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;Speyll&#x2F;anemone.git&quot;&gt;anemone(github repository)&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
-&lt;p&gt;正直、めっちゃおしゃれだと思う。開発者さんに感謝。&lt;&#x2F;p&gt;
-&lt;h2 id=&quot;jing-wei&quot;&gt;経緯&lt;&#x2F;h2&gt;
-&lt;p&gt;エンジニアとして得た知見を発信したかったため。&lt;&#x2F;p&gt;
-&lt;p&gt;以前は&lt;a href=&quot;https:&#x2F;&#x2F;fresh.deno.dev&#x2F;&quot;&gt;deno&#x2F;fresh&lt;&#x2F;a&gt;を使ってmarkdownからサイトを表示するSSGを自作していた。&lt;&#x2F;p&gt;
-&lt;p&gt;シンタックスハイライトや、mermaid.jsの組み込みを頑張ったりしていたが、記事のタグ付けの実装あたりで車輪の再発明が辛くなった。&lt;&#x2F;p&gt;
-&lt;p&gt;またdeno deployができて便利だったが、金欠のため課金をやめてしまったのでそのタイミングでzolaに切り替えた。&lt;&#x2F;p&gt;
-&lt;p&gt;これを書いている段階では公開されてないが、これからgithub actionsで公開する予定。&lt;&#x2F;p&gt;
-&lt;h2 id=&quot;zolawoshi-tutaburogunoshi-mefang&quot;&gt;zolaを使ったブログの始め方&lt;&#x2F;h2&gt;
-&lt;p&gt;基本は&lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;getting-started&#x2F;overview&#x2F;&quot;&gt;公式の手順&lt;&#x2F;a&gt;の通り。&lt;&#x2F;p&gt;
-&lt;p&gt;個人的なアドバイスポイントは、&lt;&#x2F;p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;zola init&lt;&#x2F;code&gt; の直後に &lt;code&gt;zola serve&lt;&#x2F;code&gt; を行い、続けてthemeをセッティングする
-&lt;ul&gt;
-&lt;li&gt;公式の通りに進めても、&lt;code&gt;zola serve&lt;&#x2F;code&gt; が意図しないタイミングでこけた&lt;&#x2F;li&gt;
-&lt;li&gt;チュートリアル完了後にthemeを設定しても反映されなかった（なので&lt;code&gt;zola init&lt;&#x2F;code&gt;の直後にthemeを設定する。これだとうまくいく）
-&lt;ul&gt;
-&lt;li&gt;俗に言う「おまかん」：お前の環境だけだ！の可能性あり&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;ol&gt;
-&lt;li&gt;zolaのインストール &lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;getting-started&#x2F;installation&#x2F;&quot;&gt;インストール方法（公式）&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;code&gt;zola init myblog&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;ここですぐに&lt;code&gt;zola serve&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;（任意のthemeを設定）⇦ここは任意かも
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;themes&#x2F;&quot;&gt;テーマ一覧&lt;&#x2F;a&gt;から好きなテーマを探す&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;code&gt;&#x2F;themes&#x2F;&lt;&#x2F;code&gt;以下にリポジトリをクローン&lt;&#x2F;li&gt;
-&lt;li&gt;（追加の処理があれば）テーマのリポジトリの指示を実行&lt;&#x2F;li&gt;
-&lt;&#x2F;ol&gt;
-&lt;&#x2F;li&gt;
-&lt;li&gt;後はチュートリアル通り&lt;&#x2F;li&gt;
-&lt;&#x2F;ol&gt;
-&lt;h2 id=&quot;sonota-bu-zu&quot;&gt;その他補足&lt;&#x2F;h2&gt;
-&lt;ul&gt;
-&lt;li&gt;作成したブログのリポジトリ(&lt;code&gt;zola init&lt;&#x2F;code&gt;したディレクトリ)をクローンする際にはthemes以下をサブモジュール化する
-&lt;ul&gt;
-&lt;li&gt;
-&lt;blockquote&gt;
-&lt;p&gt;In either case, it seems to work best if you use git submodule to include your theme, e.g.:&lt;&#x2F;p&gt;
-&lt;&#x2F;blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;git submodule add https:&#x2F;&#x2F;github.com&#x2F;getzola&#x2F;after-dark.git themes&#x2F;after-dark&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
-&lt;&#x2F;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;引用：&lt;a href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;deployment&#x2F;github-pages&#x2F;&quot;&gt;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;deployment&#x2F;github-pages&#x2F;&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
-&lt;&#x2F;li&gt;
-&lt;li&gt;サブモジュールが含まれるリポジトリのクローン方法
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;git submodule init&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
-&lt;li&gt;&lt;code&gt;git submodule update&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
-&lt;&#x2F;ol&gt;
-&lt;&#x2F;li&gt;
-&lt;&#x2F;ul&gt;
+            <entry>
+                <title>電子書籍サービスの比較</title>
+                <link href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog&#x2F;blogs&#x2F;ebook-comparision&#x2F;"/>
+                <updated>2025-01-12T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog&#x2F;blogs&#x2F;ebook-comparision&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;yao-yue&amp;quot;&amp;gt;要約&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;自分が技術書を電子で買う時に選ぶサービスの優先順位&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;kawaneao1996.github.io&amp;#x2F;blog&amp;#x2F;blogs&amp;#x2F;ebook-comparision&amp;#x2F;bHWT_MwaaP3mSYE&amp;quot;&amp;gt;SEShop&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;pdfで書籍のダウンロードができる&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;クーポンやセールを利用するとポイントを利用して半額で買えたりする&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;honto.jp&amp;#x2F;&amp;quot;&amp;gt;honto&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;専用のアプリかブラウザで閲覧&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ブラウザに対応していない書籍もあり&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;kindle&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;安パイだけど重いし、Linuxで見れない&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;unext&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;ブラウザだけだが、軽いのでストレスはない&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;h2 id=&amp;quot;konoji-shi-woshu-itajing-wei&amp;quot;&amp;gt;この記事を書いた経緯&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;自分はソフトウェアエンジニアとして書籍から学習することが多い。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;その際に内容の賞味期限が長いものは紙で買い、ライブラリやフレームワーク
+に関連する等のすぐに情報が古くなるものは電子書籍で買うことにしている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;このような考えの人向けに、現状自分が技術書を電子で買う際のプラットフォームの優先順位を書いてみた（とはいえ4つだけだが）。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;ge-sabisunosuo-gan&amp;quot;&amp;gt;各サービスの所感&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h3 id=&amp;quot;ping-jia-ji-zhun-shi-yang-duan-mo&amp;quot;&amp;gt;評価基準・仕様端末&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;自分の中の要望として、以下がある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;ベンダロックインしない形式でダウンロードしたい（pdfなど）
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;サービス終了が怖いので、永続的に閲覧可能な形式が良い&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;専用のアプリはLinuxでも出すか、全書籍をブラウザで見れるようにしてほしい
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;ソフトウェアの技術書を買う人はLinuxを使ってる人が多いのでは？&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;アプリのインストール、アップデートは手間
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;アップデート後に再ログインさせられるのは苦痛&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;p&amp;gt;上記の要望をもとに、以下に各サービスを比較する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;あと補足として自分の端末はもっぱらPCでたまにiPad。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;seshop&amp;quot;&amp;gt;SEShop&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;まず書籍をpdfで買えると言うのがSEShopのいいところだと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ダウンロードしたpdfのフッターに小さく透かしで購入者のメールアドレスが埋め込まれるが、閲覧に問題はない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;pdf形式なのでデバイスによらず閲覧できてとてもいい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;あとたまに40%, 50%といったポイントがつくセールをやっていたり、クーポンを配布したりしている。かなりお得に買えるので、上記の情報が配信されるメルマガは登録するのがおすすめ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;欠点は今のところない。翔泳社以外の書籍は置いてないが、まあ書店のサービスではないので。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;自分としてはとてもいいサービスだと思っているので、続いてほしいと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ちなみに回し者ではない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;honto&amp;quot;&amp;gt;honto&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;ePubで買えるというので使ってみた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;閲覧方法は２つ。アプリかブラウザか。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;でもブラウザに対応していない書籍もあるので、メインはアプリを
+インストールして読むになる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;Linuxにはアプリがないのが不満。あと書籍によってはブラウザで見れないのはちょっと嫌（kindleもそう）。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただ、アプリのUIはいいと思う。kindleより使いやすい。
+支払いにPayPayが使えるのも個人的にいい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;トータルで購入から閲覧までのUXはkindleよりもいいと思う。おすすめが表示されるタイミングや頻度も控えめでいい感じ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただ閲覧はアプリ依存で、kindleほど大手ではないという不安がある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;kindle&amp;quot;&amp;gt;kindle&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;Amazonが潰れたら見れなくなる（紙の本とほぼ同じ値段なのに！）、アプリが重い（個人的感想）、
+Linuxのアプリがない（頑張れば見れるらしいが正規の方法ではないので、使えなくなったりもするだろう）、おすすめの本とかで広告が出てくる、といった悪い印象しかない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;おすすめはあってもいいけど、出し過ぎはうるさいよね。せめて非表示を選ばせてほしい。正直kindleはUI&amp;#x2F;UXが悪いと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;しかし品揃えはいいから、結局これになる場合が多い。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;unext&amp;quot;&amp;gt;unext&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;ダウンロードはない。ただブラウザでの閲覧が軽くてUIも使いやすい。
+ライトな感想しかないが、そんなところ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;matome&amp;quot;&amp;gt;まとめ&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;正直、自分の知らない電子書籍のサービスはまだあると思うし、この順位の妥当性にも議論の余地があると思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;とはいえ今の自分の中の正直な順位であって、これから電子書籍サービスを比較している方の参考になればと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;she-zu&amp;quot;&amp;gt;蛇足&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;余談だが、これから電子書籍サービスの使い勝手が向上するためにはネット上でのアイデンティティや著作物の取り扱いについての技術革新が必要になると思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;日本ではWeb3.0は詐欺師のバズワード化してるが、その中に分散型アイデンティティ（DID）、検証可能なクレデンシャル（VC）の仕様があってそこらへんはこういった問題に有効だと自分は思っていたりする。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;まあ、仮にそういう革新があったとしても異なる出版社をまとめてプラットフォームに組み込むのが大変なのかもしれないが。日本人は個人や各社レベルでの頑張りは得意だけど、プラットォーム化するのは下手だよなっていうこれは完全に個人的偏見。ルールや市場、標準仕様を作り運営することで管理する側の特権を得るみたいな勝ち方はヨーロッパやアメリカの人の方が上手いね。中国も標準化や仕様については力を入れるが、やり方が強引になる印象。審査員を買収したり、あるいは自国の人間んで審査員を固めたりとか。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;とはいえ、日本人から一人でもいいのでそういう勝ち方ができる人間が出て来ればことコンテンツ業界では自国が強いのでゲームチェンジできる気がしているし、それを実行できる環境が時代の流れとして生まれてきている気がしているのは私だけでしょうか？&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただあからさまにこういう勝ち方をしてしまうと欧米資本に潰されるのが目に見えているので何か工夫は必要そう。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ここまで書いて完全に頭がおかしい人と思われてそうだが、そう思った人は見なかったことにしてもらって…。蛇足でした。&amp;lt;&amp;#x2F;p&amp;gt;
 </content>
+            </entry>
+            
         
-    </entry>
+            
+            <entry>
+                <title>zolaで始めるブログ</title>
+                <link href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog&#x2F;blogs&#x2F;start-blog&#x2F;"/>
+                <updated>2025-01-07T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;blog&#x2F;blogs&#x2F;start-blog&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;ji-shu-sutatuku&amp;quot;&amp;gt;技術スタック&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h3 id=&amp;quot;ssghuremuwaku&amp;quot;&amp;gt;SSGフレームワーク&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;→&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;&amp;quot;&amp;gt;zola&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;以下特徴：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;Rust製のSSGフレームワーク&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;markdownで記事を書くことができる&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;Rust製だから早い&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;有志のテーマが充実（個人的感想）&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;日本語のドキュメントがほぼないのがちょっとマイナス
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;でもmermaidの導入とか日本語の記事があったり
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;tech.yukashikado.co.jp&amp;#x2F;posts&amp;#x2F;powered-by-zola&amp;#x2F;&amp;quot;&amp;gt;Rust製のZolaでテックブログをつくった感想&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h3 id=&amp;quot;shi-yong-tema&amp;quot;&amp;gt;使用テーマ&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;→&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;Speyll&amp;#x2F;anemone.git&amp;quot;&amp;gt;anemone(github repository)&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;正直、めっちゃおしゃれだと思う。開発者さんに感謝。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;jing-wei&amp;quot;&amp;gt;経緯&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;エンジニアとして得た知見を発信したかったため。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;以前は&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;fresh.deno.dev&amp;#x2F;&amp;quot;&amp;gt;deno&amp;#x2F;fresh&amp;lt;&amp;#x2F;a&amp;gt;を使ってmarkdownからサイトを表示するSSGを自作していた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;シンタックスハイライトや、mermaid.jsの組み込みを頑張ったりしていたが、記事のタグ付けの実装あたりで車輪の再発明が辛くなった。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;またdeno deployができて便利だったが、金欠のため課金をやめてしまったのでそのタイミングでzolaに切り替えた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これを書いている段階では公開されてないが、これからgithub actionsで公開する予定。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;zolawoshi-tutaburogunoshi-mefang&amp;quot;&amp;gt;zolaを使ったブログの始め方&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;基本は&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;getting-started&amp;#x2F;overview&amp;#x2F;&amp;quot;&amp;gt;公式の手順&amp;lt;&amp;#x2F;a&amp;gt;の通り。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;個人的なアドバイスポイントは、&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;zola init&amp;lt;&amp;#x2F;code&amp;gt; の直後に &amp;lt;code&amp;gt;zola serve&amp;lt;&amp;#x2F;code&amp;gt; を行い、続けてthemeをセッティングする
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;公式の通りに進めても、&amp;lt;code&amp;gt;zola serve&amp;lt;&amp;#x2F;code&amp;gt; が意図しないタイミングでこけた&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;チュートリアル完了後にthemeを設定しても反映されなかった（なので&amp;lt;code&amp;gt;zola init&amp;lt;&amp;#x2F;code&amp;gt;の直後にthemeを設定する。これだとうまくいく）
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;俗に言う「おまかん」：お前の環境だけだ！の可能性あり&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;zolaのインストール &amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;getting-started&amp;#x2F;installation&amp;#x2F;&amp;quot;&amp;gt;インストール方法（公式）&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;zola init myblog&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ここですぐに&amp;lt;code&amp;gt;zola serve&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;（任意のthemeを設定）⇦ここは任意かも
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;themes&amp;#x2F;&amp;quot;&amp;gt;テーマ一覧&amp;lt;&amp;#x2F;a&amp;gt;から好きなテーマを探す&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;&amp;#x2F;themes&amp;#x2F;&amp;lt;&amp;#x2F;code&amp;gt;以下にリポジトリをクローン&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;（追加の処理があれば）テーマのリポジトリの指示を実行&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;後はチュートリアル通り&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;h2 id=&amp;quot;sonota-bu-zu&amp;quot;&amp;gt;その他補足&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;作成したブログのリポジトリ(&amp;lt;code&amp;gt;zola init&amp;lt;&amp;#x2F;code&amp;gt;したディレクトリ)をクローンする際にはthemes以下をサブモジュール化する
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;blockquote&amp;gt;
+&amp;lt;p&amp;gt;In either case, it seems to work best if you use git submodule to include your theme, e.g.:&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;blockquote&amp;gt;
+&amp;lt;blockquote&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;git submodule add https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;getzola&amp;#x2F;after-dark.git themes&amp;#x2F;after-dark&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;blockquote&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;引用：&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;deployment&amp;#x2F;github-pages&amp;#x2F;&amp;quot;&amp;gt;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;deployment&amp;#x2F;github-pages&amp;#x2F;&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;サブモジュールが含まれるリポジトリのクローン方法
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;git submodule init&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;git submodule update&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+</content>
+            </entry>
+            
+        
+    
 </feed>

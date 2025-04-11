@@ -1,9 +1,7 @@
 # The URL the site will be built for
 base_url = "https://kawaneao1996.github.io/blog"
 
-taxonomies = [
-    {name = "tags", feed = true},
-]
+taxonomies = [{ name = "tags", feed = true }]
 
 # Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
@@ -20,3 +18,8 @@ highlight_code = true
 
 [extra]
 # Put all your custom variables here
+header_nav = [
+    { name_en = "Home", url = "/" },
+    { name_en = "Blog", url = "/blog/" },
+    { name_en = "About", url = "/about/" },
+]

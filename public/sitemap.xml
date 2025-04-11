@@ -1,35 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/blogs/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/blogs/ebook-comparision/</loc>
-        <lastmod>2025-01-12</lastmod>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/blogs/page/1/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/blogs/start-blog/</loc>
-        <lastmod>2025-01-07</lastmod>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/tags/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/tags/did-vc/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/tags/ebook/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/tags/rust/</loc>
-    </url>
-    <url>
-        <loc>https://kawaneao1996.github.io/blog/tags/zola/</loc>
-    </url>
+    
+    
+        <url>
+            <loc>https://kawaneao1996.github.io/blog/about/</loc>
+            
+        </url>
+    
+    
+    
+        
+        
+            <url>
+                <loc>https://kawaneao1996.github.io/blog/blogs/ebook-comparision/</loc>
+                <lastmod>2025-01-12</lastmod>
+            </url>
+        
+            <url>
+                <loc>https://kawaneao1996.github.io/blog/blogs/start-blog/</loc>
+                <lastmod>2025-01-07</lastmod>
+            </url>
+        
+    
 </urlset>
