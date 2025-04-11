@@ -1,5 +1,6 @@
 # The URL the site will be built for
-base_url = "https://kawaneao1996.github.io/myblog"
+# base_url = "https://kawaneao1996.github.io/myblog"
+base_url = "http://kawanenamito.io/"
 
 taxonomies = [{ name = "tags", feed = true }]
 
