@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Allow: /
+Sitemap: https://kawaneao1996.github.io/myblogs/sitemap.xml

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="index, follow">
+        
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="https://kawaneao1996.github.io/myblogs/rss.xml">
+        
+        <title> | zolaで始めるブログ</title>
+
+        <link rel="preload" href="https://kawaneao1996.github.io/myblogs/css/style.css" as="style">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/reset-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://kawaneao1996.github.io/myblogs/css/style.css">
+        <link rel="stylesheet" href="https://kawaneao1996.github.io/myblogs/css/custom.css">
+
+        <!-- Add favicon with appropriate sizes -->
+        <link rel="icon" href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;myblogs/favicon.ico">
+    </head>
+    <body>
+        
+        
+        
+        
+        <nav id="nav-bar">
+            
+            <a href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;myblogs" class="">
+                
+                Home
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;myblogs&#x2F;blogs" class="">
+                
+                Blog
+            </a>
+            
+            <a href="https:&#x2F;&#x2F;kawaneao1996.github.io&#x2F;myblogs&#x2F;about" class="">
+                
+                About
+            </a>
+            
+
+            <div class="theme-toggle" id="theme-toggle" role="button" tabindex="0" aria-label="Toggle theme"
+                data-icon-base="https://kawaneao1996.github.io/myblogs/icons.svg"
+                data-icon-dark="#darkMode"
+                data-icon-light="#lightMode"
+                data-sound-src="https://kawaneao1996.github.io/myblogs/click.ogg">
+                <svg class="icon">
+                    <use id="theme-icon"></use>
+                </svg>
+            </div>
+        </nav>
+
+        <main>
+            
+<article class="post">
+    <header class="post-header">
+        
+        <time datetime="2025-01-07">Published on:
+            <span class="accent-data">2025-01-07</span>
+        </time>
+        
+
+        
+
+        <h1>zolaで始めるブログ</h1>
+    </header>
+
+
+<div class="toc-container">
+    <h2>Table of content</h2>
+    <ul>
+        
+        <li>
+            <a href="https://kawaneao1996.github.io/myblogs/blogs/start-blog/#ji-shu-sutatuku">技術スタック</a>
+            
+            <ul>
+                
+                <li><a href="https://kawaneao1996.github.io/myblogs/blogs/start-blog/#ssg-huremuwaku">SSG フレームワーク</a></li>
+                
+                <li><a href="https://kawaneao1996.github.io/myblogs/blogs/start-blog/#shi-yong-tema">使用テーマ</a></li>
+                
+            </ul>
+            
+        </li>
+        
+        <li>
+            <a href="https://kawaneao1996.github.io/myblogs/blogs/start-blog/#jing-wei">経緯</a>
+            
+        </li>
+        
+        <li>
+            <a href="https://kawaneao1996.github.io/myblogs/blogs/start-blog/#zola-woshi-tutaburogunoshi-mefang">zola を使ったブログの始め方</a>
+            
+        </li>
+        
+        <li>
+            <a href="https://kawaneao1996.github.io/myblogs/blogs/start-blog/#sonota-bu-zu">その他補足</a>
+            
+        </li>
+        
+    </ul>
+</div>
+
+
+    <div class="post-content">
+        <h2 id="ji-shu-sutatuku">技術スタック</h2>
+<h3 id="ssg-huremuwaku">SSG フレームワーク</h3>
+<p>→<a href="https://www.getzola.org/">zola</a></p>
+<p>以下特徴：</p>
+<ul>
+<li>Rust 製の SSG フレームワーク</li>
+<li>markdown で記事を書くことができる</li>
+<li>Rust 製だから早い</li>
+<li>有志のテーマが充実（個人的感想）</li>
+<li>日本語のドキュメントがほぼないのがちょっとマイナス
+<ul>
+<li>でも mermaid の導入とか日本語の記事があったり
+<ul>
+<li><a href="https://tech.yukashikado.co.jp/posts/powered-by-zola/">Rust 製の Zola でテックブログをつくった感想</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="shi-yong-tema">使用テーマ</h3>
+<p>→<a href="https://github.com/Speyll/anemone.git">anemone(github repository)</a></p>
+<p>正直、めっちゃおしゃれだと思う。開発者さんに感謝。</p>
+<h2 id="jing-wei">経緯</h2>
+<p>エンジニアとして得た知見を発信したかったため。</p>
+<p>以前は<a href="https://fresh.deno.dev/">deno/fresh</a>を使って markdown からサイトを表示する SSG を自作していた。</p>
+<p>シンタックスハイライトや、mermaid.js の組み込みを頑張ったりしていたが、記事のタグ付けの実装あたりで車輪の再発明が辛くなった。</p>
+<p>また deno deploy ができて便利だったが、金欠のため課金をやめてしまったのでそのタイミングで zola に切り替えた。</p>
+<p>これを書いている段階では公開されてないが、これから github actions で公開する予定。</p>
+<h2 id="zola-woshi-tutaburogunoshi-mefang">zola を使ったブログの始め方</h2>
+<p>基本は<a href="https://www.getzola.org/documentation/getting-started/overview/">公式の手順</a>の通り。</p>
+<p>個人的なアドバイスポイントは、</p>
+<ul>
+<li><code>zola init</code> の直後に <code>zola serve</code> を行い、続けて theme をセッティングする
+<ul>
+<li>公式の通りに進めても、<code>zola serve</code> が意図しないタイミングでこけた</li>
+<li>チュートリアル完了後に theme を設定しても反映されなかった（なので<code>zola init</code>の直後に theme を設定する。これだとうまくいく）
+<ul>
+<li>俗に言う「おまかん」：お前の環境だけだ！の可能性あり</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>zola のインストール <a href="https://www.getzola.org/documentation/getting-started/installation/">インストール方法（公式）</a></li>
+<li><code>zola init myblogs</code></li>
+<li>ここですぐに<code>zola serve</code></li>
+<li>（任意の theme を設定）⇦ ここは任意かも
+<ol>
+<li><a href="https://www.getzola.org/themes/">テーマ一覧</a>から好きなテーマを探す</li>
+<li><code>/themes/</code>以下にリポジトリをクローン</li>
+<li>（追加の処理があれば）テーマのリポジトリの指示を実行</li>
+</ol>
+</li>
+<li>後はチュートリアル通り</li>
+</ol>
+<h2 id="sonota-bu-zu">その他補足</h2>
+<ul>
+<li>
+<p>作成したブログのリポジトリ(<code>zola init</code>したディレクトリ)をクローンする際には themes 以下をサブモジュール化する</p>
+<ul>
+<li>
+<blockquote>
+<p>In either case, it seems to work best if you use git submodule to include your theme, e.g.:</p>
+</blockquote>
+<blockquote>
+<p><code>git submodule add https://github.com/getzola/after-dark.git themes/after-dark</code></p>
+</blockquote>
+<ul>
+<li>引用：<a href="https://www.getzola.org/documentation/deployment/github-pages/">https://www.getzola.org/documentation/deployment/github-pages/</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>サブモジュールが含まれるリポジトリのクローン方法</p>
+<ol>
+<li><code>git submodule init</code></li>
+<li><code>git submodule update</code></li>
+</ol>
+</li>
+</ul>
+
+    </div>
+
+    
+    <div class="post-tags">
+        
+        <a href="/tags/rust" class="tag">#Rust </a>
+        
+        <a href="/tags/zola" class="tag">#zola </a>
+        
+    </div>
+    
+</article>
+
+        </main>
+
+        <footer>
+            <hr>
+<div id="footer-container">
+    <p>Made using <a target="_blank" rel="noopener noreferrer" href="https://github.com/Speyll/anemone">anemone</a> Zola theme</p>
+</div>
+
+        </footer>
+
+        <!-- Move JS to end of body and add defer -->
+        <script src="https://kawaneao1996.github.io/myblogs/js/script.js" defer></script>
+    </body>
+</html>
