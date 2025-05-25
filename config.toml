@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://kawaneao1996.github.io/myblogs"
+base_url = "https://hebinoashi.netlify.app"
 
 taxonomies = [{ name = "tags", feed = true }]
 
