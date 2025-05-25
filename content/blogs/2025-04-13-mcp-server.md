@@ -33,14 +33,14 @@ toc = true
 
 Copilot に利用させるアクセストークンを Github で生成する。
 （PC）Github のページ右上のアイコン押下 -> `Setting` -> `Developer Settings` -> `Personal access tokens`から`Fine-grained tokens`を作成
-![Githubの右上のアイコンをクリック](./pic/20250412/1.png)
+![Githubの右上のアイコンをクリック](/images/2025-04-12/1.png)
 
 #### 設定例
 
 アクセストークンにはエージェントに必要な最低限の権限のみを付与する。
 今回はプライベートリポジトリにある issue と PR を扱うための権限のみを設定した。以下に設定例を記載しておく。
 
-![アクセストークン設定例](./pic/20250412/2.png)
+![アクセストークン設定例](/images/2025-04-12/2.png)
 
 補足：
 
