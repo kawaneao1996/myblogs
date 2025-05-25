@@ -4,4 +4,4 @@ title = "All blog posts"
 sort_by = "date"
 +++
 
-> List of all _[tags](https://kawaneao1996.github.io/myblogs/tags/)_
+> List of all _[tags](tags)_
