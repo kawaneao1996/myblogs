@@ -1,0 +1,19 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="index, follow" name=robots><link href=https://hebinoashi.netlify.app/rss.xml rel=alternate title=RSS type=application/rss+xml><title> | ブログのデプロイ先を Netlify にした</title><link as=style href=https://hebinoashi.netlify.app/css/style.css rel=preload><link crossorigin href=https://raw.githack.com/Speyll/suCSS/main/reset-min.css rel=stylesheet><link crossorigin href=https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css rel=stylesheet><link href=https://hebinoashi.netlify.app/css/style.css rel=stylesheet><link href=https://hebinoashi.netlify.app/css/custom.css rel=stylesheet><link href=https://hebinoashi.netlify.app/favicon.ico rel=icon><body><nav id=nav-bar><a href=/> Home </a><a href=/blogs/> Blog </a><a href=/about/> About </a><div aria-label="Toggle theme" class=theme-toggle data-icon-base=https://hebinoashi.netlify.app/icons.svg data-icon-dark=#darkMode data-icon-light=#lightMode data-sound-src=https://hebinoashi.netlify.app/click.ogg id=theme-toggle role=button tabindex=0><svg class=icon><use id=theme-icon></use></svg></div></nav><main><article class=post><header class=post-header><time datetime=2025-05-25>Published on: <span class=accent-data>2025-05-25</span> </time><h1>ブログのデプロイ先を Netlify にした</h1></header><div class=toc-container><h2>Table of content</h2><ul><li><a href=https://hebinoashi.netlify.app/blogs/deploy-to-netlify/#burogunodepuroixian-wo-netlify-nisita>ブログのデプロイ先を Netlify にした</a></ul></div><div class=post-content><h2 id=burogunodepuroixian-wo-netlify-nisita>ブログのデプロイ先を Netlify にした</h2><p>もともとは zola でビルドした成果物を Github Pages にデプロイしていたがルーティング周りが独特な仕様だからか画像リンクが表示されないとか、マークダウンのリンクが正しく動かないとか色々問題があった。<p>勉強がてら AWS S3 + CloudFront にデプロイとかしてみたかったけど時間無いので Netlify を選んだ。<p>Github のリポジトリを連携させて、<code>netlify.toml</code>をこんな感じで置いておくだけ。めっちゃ楽。<pre class=language-toml data-lang=toml style=color:#c0c5ce;background-color:#2b303b><code class=language-toml data-lang=toml><span>[build]
+</span><span style=color:#65737e># This assumes that the Zola site is in a docs folder. If it isn't, you don't need
+</span><span style=color:#65737e># to have a `base` variable but you do need the `publish` and `command` variables.
+</span><span style=color:#bf616a>publish </span><span>= "</span><span style=color:#a3be8c>public</span><span>"
+</span><span style=color:#bf616a>command </span><span>= "</span><span style=color:#a3be8c>zola build</span><span>"
+</span><span>
+</span><span>[build.environment]
+</span><span style=color:#65737e># Set the version name that you want to use and Netlify will automatically use it.
+</span><span style=color:#bf616a>ZOLA_VERSION </span><span>= "</span><span style=color:#a3be8c>0.20.0</span><span>"
+</span><span>
+</span><span style=color:#65737e># The magic for deploying previews of branches.
+</span><span style=color:#65737e># We need to override the base url with whatever url Netlify assigns to our
+</span><span style=color:#65737e># preview site.  We do this using the Netlify environment variable
+</span><span style=color:#65737e># `$DEPLOY_PRIME_URL`.
+</span><span>
+</span><span>[context.deploy-preview]
+</span><span style=color:#bf616a>command </span><span>= "</span><span style=color:#a3be8c>zola build --base-url $DEPLOY_PRIME_URL</span><span>"
+</span><span>
+</span></code></pre><blockquote><p><a href=https://www.getzola.org/documentation/deployment/netlify/>出典：Zola - Netlify</a></blockquote></div><div class=post-tags><a class=tag href=/tags/netlify>#Netlify </a></div></article></main><footer><hr><div id=footer-container><p>Made using <a rel="noopener noreferrer" href=https://github.com/Speyll/anemone target=_blank>anemone</a> Zola theme</div></footer><script defer src=https://hebinoashi.netlify.app/js/script.js></script>
