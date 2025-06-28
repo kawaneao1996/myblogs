@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title></title>
+    <link href="https://hebinoashi.netlify.app/atom.xml" rel="self"/>
+    <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app"/>
+    <updated>2025-06-28T06:04:44+0000</updated>
+    <id>https:&#x2F;&#x2F;hebinoashi.netlify.app</id>
+
+    
+    
+    
+    
+        
+    
+    
+    
+        
+        
+            
+            <entry>
+                <title>Nextjsについて最近知ったこと</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;nextjs&#x2F;"/>
+                <updated>2025-06-28T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;nextjs&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;gai-yao&amp;quot;&amp;gt;概要&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;strong&amp;gt;フロントエンドエンジニアなら、React だけでなく Next.js も学ぶ必要があるという話&amp;lt;&amp;#x2F;strong&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;社外の数人との話をまとめると Next.js の需要が高いそうだ&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ここら辺の理由を推測も交えつつまとめる&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h2 id=&amp;quot;hurontoendoenzinianara-react-dakedenaku-next-js-moxue-bubi-yao-gaarutoiuhua&amp;quot;&amp;gt;フロントエンドエンジニアなら、React だけでなく Next.js も学ぶ必要があるという話&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h3 id=&amp;quot;bei-jing&amp;quot;&amp;gt;背景&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;現職の会社以外の方との話によると、どうやらフロントエンドエンジニアを名乗るなら React だけでなく、Next.js までできたほうがいいらしい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ちなみに複数人に同じこと言われたので、この話はある程度信憑性もあるのだと思う。この話を聞いて自分でも実際に Next.js を触ってみたので、この記事では気が付いたことを書いておく。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;next-js-nomerituto&amp;quot;&amp;gt;Next.js のメリット&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;今のところ次の３つのメリットがあると感じている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;ログ出力、メトリクス&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;アクセストークンをブラウザに露出しなくて済む&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ルーティング機能が組み込みであること／ファイル構成が統一されること&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;p&amp;gt;まず前提として、React はユーザーデバイスのブラウザで動く SPA アプリのライブラリだ。
+だから React のアプリケーションを配信するにはコンテンツ配信サーバーないしファイルストレージがあれば良い。（⇔ ロジックを処理するための CPU 付きのサーバーにデプロイする必要はない）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;一方で Next.js はユーザーデバイスで動く部分と、フロントエンドサーバーで動く部分を１つのリポジトリで管理できる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;pre class=&amp;quot;mermaid&amp;quot;&amp;gt;
+graph TD
+subgraph React
+User1[👤 ユーザー]
+CDN[📡 CDN&amp;#x2F;静的ホスティング]
+Browser1[🌐 ブラウザ]
+User1 --&amp;gt; CDN --&amp;gt; Browser1
+Browser1 -- CSR 実行 --&amp;gt; Browser1
+end
+
+    subgraph Next.js
+        User2[👤 ユーザー]
+        Server[🖥️ Next.jsサーバー]
+        Browser2[🌐 ブラウザ]
+        User2 --&amp;gt; Server --&amp;gt; Browser2
+        Browser2 -- ハイドレーション&amp;#x2F;CSR --&amp;gt; Browser2
+    end
+&amp;lt;&amp;#x2F;pre&amp;gt;
+&amp;lt;p&amp;gt;図：React と Next.js のシステム構成の違い&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;よって React でログ出力をしてもそれはユーザーのブラウザでしか表示されないが、 Next.js を使えばサーバー側にログを出力できる。また Next.js はサーバーサイドで API 呼び出し等のメトリクスを表示することができる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これがまず１つ目のメリットだと考えていて、商用の Web アプリケーションを作成するならばログ出力やメトリクスはマストになると思うので、Next.js を学ぶ必要があると思った次第だった。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;２つ目のメリットとして挙げたアクセストークンについては、まず OIDC の基盤となる OAuth2.0 ではユーザーだけでなく、フロントエンドアプリケーション自体も認可サーバに認証を行う必要がある。
+このフロントエンドアプリケーション自体の認証情報と、リフレッシュトークン（アクセストークンの有効期限が切れた場合の更新用トークン）はシステム外のユーザーのデバイスに乗ってしまうとまずいことになる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;そしてこれらの情報はブラウザだけで動く React だけでは当然管理できないため、必然的に専用のバックエンドサーバーを立てるか、Next.js 等のサーバーサイドを含んだフレームワークを使う必要が出てくる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;Next.js の場合、Authentication の仕組みがある程度準備されているため、専用のバックエンドサーバーを立てるよりも効率的だと考えている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;最後にルーティングとファイル構成について言うと、Next.js ではディレクトリ構成がそのままクライアントサイドルーティングのパスになる。そしてレイアウトファイルとルーティングファイルは固定名なので誰が実装しても場所と名前が同じになり、管理がしやすい。
+一方で React だとルーティング用のライブラリ(大体&amp;lt;code&amp;gt;React-router-dom&amp;lt;&amp;#x2F;code&amp;gt;)を入れ実装が必要なのと、ファイル構成は実装者の力量によってきれいだったりそうじゃなかったりする。
+（まあ&amp;lt;code&amp;gt;React-router-dom&amp;lt;&amp;#x2F;code&amp;gt;に関しては、自由度が高くて個人的には好きなライブラリなのと単純に使う分には Next.js と実装量はあまり変わらない。とはいえ品質は Next.js のほうが安定するかも。）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;matome&amp;quot;&amp;gt;まとめ&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;冒頭に書いたフロントエンドエンジニアに Next.js が求められる理由は、商用のアプリケーションを作成するため必要な構成になっているからだと解釈した。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;実際に触ってみても、実用性が大きく採用されるだけの理由があるフレームワークだと感じた。（歴が浅いため、デメリットがわかっていないだけかもしれないが）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;React はある程度理解できている（つもり）ので、Next.js をこれから技術スタックに積んでいこうと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;まあ Svelte とか SCSS とか触りたい分野は他にもあるのだが。。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;she-zu&amp;quot;&amp;gt;蛇足&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;やりたい学習はたくさんあっても、ついつい Youtube 見たり将棋ウォーズを起動したりしてしまう
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;とはいえスマホ依存は昔より改善できたところもあって、今まで実施した対策とこれからいかにスマホ依存から脱却するか？という内容もブログにしてみたい&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;次はマルチ AI エージェントシステムの構築方法についてまとめる予定&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;script type=&amp;quot;module&amp;quot;&amp;gt;
+    import mermaid from &amp;#x27;https:&amp;#x2F;&amp;#x2F;cdn.jsdelivr.net&amp;#x2F;npm&amp;#x2F;mermaid@10&amp;#x2F;dist&amp;#x2F;mermaid.esm.min.mjs&amp;#x27;;
+    mermaid.initialize({ startOnLoad: true });
+&amp;lt;&amp;#x2F;script&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>ブログのデプロイ先を Netlify にした</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;deploy-to-netlify&#x2F;"/>
+                <updated>2025-05-25T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;deploy-to-netlify&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;burogunodepuroixian-wo-netlify-nisita&amp;quot;&amp;gt;ブログのデプロイ先を Netlify にした&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;もともとは zola でビルドした成果物を Github Pages にデプロイしていたがルーティング周りが独特な仕様だからか画像リンクが表示されないとか、マークダウンのリンクが正しく動かないとか色々問題があった。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;勉強がてら AWS S3 + CloudFront にデプロイとかしてみたかったけど時間無いので Netlify を選んだ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;Github のリポジトリを連携させて、&amp;lt;code&amp;gt;netlify.toml&amp;lt;&amp;#x2F;code&amp;gt;をこんな感じで置いておくだけ。めっちゃ楽。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;pre data-lang=&amp;quot;toml&amp;quot; style=&amp;quot;background-color:#2b303b;color:#c0c5ce;&amp;quot; class=&amp;quot;language-toml &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-toml&amp;quot; data-lang=&amp;quot;toml&amp;quot;&amp;gt;&amp;lt;span&amp;gt;[build]
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# This assumes that the Zola site is in a docs folder. If it isn&amp;amp;#39;t, you don&amp;amp;#39;t need
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# to have a `base` variable but you do need the `publish` and `command` variables.
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;publish &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;= &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;public&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;command &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;= &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;zola build&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;[build.environment]
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# Set the version name that you want to use and Netlify will automatically use it.
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;ZOLA_VERSION &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;= &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;0.20.0&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# The magic for deploying previews of branches.
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# We need to override the base url with whatever url Netlify assigns to our
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# preview site.  We do this using the Netlify environment variable
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#65737e;&amp;quot;&amp;gt;# `$DEPLOY_PRIME_URL`.
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;[context.deploy-preview]
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;command &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;= &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;zola build --base-url $DEPLOY_PRIME_URL&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;pre&amp;gt;
+&amp;lt;blockquote&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;deployment&amp;#x2F;netlify&amp;#x2F;&amp;quot;&amp;gt;出典：Zola - Netlify&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;blockquote&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>DioxusとNetlifyで作るWebアプリ</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;dioxus-netlify&#x2F;"/>
+                <updated>2025-05-04T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;dioxus-netlify&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;gai-yao&amp;quot;&amp;gt;概要&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;dioxuslabs.com&amp;#x2F;&amp;quot;&amp;gt;Dioxus&amp;lt;&amp;#x2F;a&amp;gt;で Web アプリを作成したら&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.netlify.com&amp;#x2F;&amp;quot;&amp;gt;Netlify&amp;lt;&amp;#x2F;a&amp;gt;にデプロイするのが楽&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;astounding-gaufre-3c1912.netlify.app&amp;#x2F;&amp;quot;&amp;gt;成果物（ポモドーロタイマー）&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h2 id=&amp;quot;bei-jing&amp;quot;&amp;gt;背景&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;Dioxus&amp;lt;&amp;#x2F;code&amp;gt;は Rust 製の GUI フレームワークで、マルチプラットフォームが特徴
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;コンポーネントの記述はほぼ&amp;lt;code&amp;gt;React&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;当初は Github Actions から Github Pages にデプロイしようとしていた
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;dioxus-cli&amp;lt;&amp;#x2F;code&amp;gt;のインストールが 10 分くらいかかるし、結局うまくいかなかったので Netlify にデプロイ&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;（補足）&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;dioxuslabs.com&amp;#x2F;deploy&amp;#x2F;&amp;quot;&amp;gt;Dioxus Deploy&amp;lt;&amp;#x2F;a&amp;gt;が近日中にリリースされるらしい。それまでは Netlify でいいのでは&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h2 id=&amp;quot;xiang-xi&amp;quot;&amp;gt;詳細&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;ここでは&amp;lt;code&amp;gt;Dioxus&amp;lt;&amp;#x2F;code&amp;gt;のプロジェクト作成からデプロイまでを簡単に説明する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;説明にあたり簡単なポモドーロタイマーのアプリを Github Copilot に作ってもらった。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ソースコードは&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;kawaneao1996&amp;#x2F;pomodoro_timer&amp;quot;&amp;gt;pomodoro_timer&amp;lt;&amp;#x2F;a&amp;gt;に格納。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;del&amp;gt;見るからに AI が作りました！というデザイン&amp;lt;&amp;#x2F;del&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;puroziekutonozuo-cheng&amp;quot;&amp;gt;プロジェクトの作成&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;dioxuslabs.com&amp;#x2F;learn&amp;#x2F;0.6&amp;#x2F;getting_started&amp;#x2F;#&amp;quot;&amp;gt;公式の Getting Started&amp;lt;&amp;#x2F;a&amp;gt;を参考に&amp;lt;code&amp;gt;dioxus-cli&amp;lt;&amp;#x2F;code&amp;gt;をインストール。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ターミナルから&amp;lt;code&amp;gt;dx --version&amp;lt;&amp;#x2F;code&amp;gt;が実行できればインストール完了。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;次にプロジェクト作成のためにターミナルから&amp;lt;code&amp;gt;dx init &amp;amp;lt;project名&amp;amp;gt;&amp;lt;&amp;#x2F;code&amp;gt;を実行する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;(今回サブテンプレートは Bare-Bones を選択した。)&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;※ サブテンプレートについては（参考 by Claude 3.7 Sonnet）Dioxus のサブテンプレートについて を参照&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;（&amp;lt;code&amp;gt;dx init&amp;lt;&amp;#x2F;code&amp;gt;したら一度&amp;lt;code&amp;gt;dx serve&amp;lt;&amp;#x2F;code&amp;gt;を実行して、サンプルページが表示されることを確認すると良き）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;あとは&amp;lt;code&amp;gt;main.rs&amp;lt;&amp;#x2F;code&amp;gt;や&amp;lt;code&amp;gt;cargo.toml&amp;lt;&amp;#x2F;code&amp;gt;を作っていくだけ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;dong-zuo-que-ren-bundle&amp;quot;&amp;gt;動作確認／bundle&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;動作確認にはターミナルから&amp;lt;code&amp;gt;dx serve&amp;lt;&amp;#x2F;code&amp;gt;を実行する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;bundle するには&amp;lt;code&amp;gt;dx bundle --platform web&amp;lt;&amp;#x2F;code&amp;gt;をターミナルで実行&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;→&amp;lt;code&amp;gt;target\dx\&amp;amp;lt;project_name&amp;amp;gt;\release\web\public&amp;lt;&amp;#x2F;code&amp;gt;に html とその他の asset が生成される。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;netlify-nidepuroi&amp;quot;&amp;gt;Netlify にデプロイ&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;Netlify にログインして、前セクションの&amp;lt;code&amp;gt;public&amp;lt;&amp;#x2F;code&amp;gt;ディレクトリをドラッグアンドドロップする。（&amp;lt;code&amp;gt;public&amp;lt;&amp;#x2F;code&amp;gt;ディレクトリの中身ではなく、&amp;lt;code&amp;gt;public&amp;lt;&amp;#x2F;code&amp;gt;フォルダ自体を入れる）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;↓ にドラッグアンドドロップ
+&amp;lt;img src=&amp;quot;&amp;#x2F;images&amp;#x2F;2025-05-04&amp;#x2F;image.png&amp;quot; alt=&amp;quot;Netlifyのドラッグアンドドロップ先&amp;quot; &amp;#x2F;&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これでデプロイが完了。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;can-kao-by-claude-3-7-sonnet-dioxus-nosabutenpuretonituite&amp;quot;&amp;gt;（参考 by Claude 3.7 Sonnet）Dioxus のサブテンプレートについて&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;pre data-lang=&amp;quot;markdown&amp;quot; style=&amp;quot;background-color:#2b303b;color:#c0c5ce;&amp;quot; class=&amp;quot;language-markdown &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-markdown&amp;quot; data-lang=&amp;quot;markdown&amp;quot;&amp;gt;&amp;lt;span style=&amp;quot;color:#8fa1b3;&amp;quot;&amp;gt;# Dioxus のサブテンプレートについて
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;Dioxus の&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;`dx new`&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;コマンドで表示される「サブテンプレート」は、新しいプロジェクトの初期構造を決める選択肢です。調査によると、以下の 3 つのオプションがあります：
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#8fa1b3;&amp;quot;&amp;gt;## 1. Bare-Bones（ベアボーン）
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;最もシンプルな構成です。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- main.rs ファイルと assets フォルダのみの基本的なセットアップ
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- 最小限の依存関係
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- 基本的な App コンポーネント以外の事前構築されたコンポーネントはなし
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;小規模なアプリケーションや、プロジェクト構造を一から構築したい場合に適しています。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#8fa1b3;&amp;quot;&amp;gt;## 2. Jumpstart（ジャンプスタート）
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;より整備された構造を提供します。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- 事前定義されたフォルダ構造
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- サンプルコンポーネント
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- ビューやページのための推奨構成
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- アプリケーション構築のためのより構造化されたアプローチ
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;最初からいくつかのベストプラクティスを組み込みたい場合に便利です。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#8fa1b3;&amp;quot;&amp;gt;## 3. Workspace（ワークスペース）
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;最も包括的なオプションです。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- 異なるプラットフォーム（ウェブ、デスクトップ、モバイル）用の個別のクレートを持つ完全な Cargo ワークスペースを作成
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- プラットフォーム固有のコードを維持しながら共通コンポーネントを共有する必要があるクロスプラットフォームアプリケーションに適している
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#8fa1b3;&amp;quot;&amp;gt;## 選択後のプロセス
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;サブテンプレートを選択した後、CLI は通常以下のような追加の設定質問をします：
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- Dioxus Fullstack を使用するかどうか
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- Dioxus Router を使用するかどうか
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- Tailwind CSS を使用するかどうか
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;- デフォルトのプラットフォーム（ウェブ、デスクトップなど）
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#8fa1b3;&amp;quot;&amp;gt;## 推奨
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;ポモドーロタイマーのような比較的シンプルなアプリケーションを構築する場合は、Bare-Bones テンプレートで十分かもしれません。複数のビューやコンポーネントを持つより複雑なアプリケーションを計画している場合は、Jumpstart テンプレートがより良い初期構造を提供します。ウェブ、デスクトップ、潜在的にモバイルで動作するクロスプラットフォームアプリケーションを作成する予定がある場合は、Workspace テンプレートが最も適しています。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;pre&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>HHKB Professional HYBRID</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;hhkb-hybrid&#x2F;"/>
+                <updated>2025-04-24T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;hhkb-hybrid&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;gai-yao&amp;quot;&amp;gt;概要&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h2 id=&amp;quot;hhkb-professional-hybrid-non-type-s-nogan-xiang&amp;quot;&amp;gt;HHKB Professional HYBRID (Non Type-S)の感想&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;ついに HHKB の HYBRID を手に入れることができた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;まず自分が最も関心のあった、&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;と&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;のどちらが好きか？というところについては、どちらも良さがあるので一概に言えないな。。という結論に至った。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;とても日和見の意見になってしまう。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;自分が比較の観点として挙げるのは以下：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;打鍵感&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;打鍵音&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;キーストローク&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;指への負担&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h3 id=&amp;quot;da-jian-gan&amp;quot;&amp;gt;打鍵感&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;まず&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の良さとしては、打鍵感がコンビニ（セブンイレブンとか）の ATM のキーに近く、静電容量無接点方式の良さが出ている点があると思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうがキーを押下するときに擦れる感じが無く、弾力があるというかバネっぽい感じがある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただバネ感があるので&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;と同じ感覚で打つと疲れてしまう。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;バネの力を利用してすぐに指を離す感覚でキーを押下すると楽しくタイピングできる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;脱力しながらのフォームが理想というか、指先に荷重を感じながらタイピングになる。これが楽しい人は向いていると思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;自分は 3 年&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;を使ってきたせいなのか最初は押下圧で指を戻す感覚が無く、最初はタイピングしていて疲れるなと思った。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;なので&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;を使ってみて改めて&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;の打鍵感の良さに気が付いたという一面もある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;正直自分はどちらも好きだなと思った。この打鍵感については優劣つけがたいというか、どちらも好きというのが結論になる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;da-jian-yin&amp;quot;&amp;gt;打鍵音&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;次に打鍵音についてだが、&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;はキーを離したときに碁石をぶつけたようなチャラっとした音がするなと。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;音量はまあ気をつければ特別大きいというわけではないし、指がキーから浮かないように離せば静かになる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;そして静かに打鍵すればオフィスでも使えるとは思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;は&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;とは違った良さの音が鳴る。ここは好みだと思うが、静かに打鍵したときの&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうが自分は好き。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;もちろん、&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;を触ったことで&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;の打鍵音の良さにも改めて気付かされたわけだが。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;気を抜くとチャラっとした音が鳴る。省エネなタイピングが使いこなす鍵だと思った。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;kisutoroku&amp;quot;&amp;gt;キーストローク&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;キーストロークについては、&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;が 3.8mm で&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;が 4.0mm というスペック上の違いがある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これを指先で感じるか？というところだが、正直打鍵感が違いすぎてストロークの深さの違いはわからない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;先入観ありきで&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうが深い感じはする。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;zhi-henofu-dan&amp;quot;&amp;gt;指への負担&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;最後に指への負担に関してだが、先述した通り&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;は何も考えずにタイピングしても指は疲れない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;一方で&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;はなるべく脱力して、キーから指が離れないようにタイピングすると指が疲れないが、&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;普通にタイピングすると&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;よりも疲れるという感覚があった。これは自分が&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;を先に 3 年使っていて&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;それに慣れているのが原因かもしれない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;キーの重さは&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうが軽い気がするし、逆に言えば&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうが打っている感覚がある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;長時間の使用は自分は&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の打ち方に慣れてきたので問題ないかなという感じ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;楽しさでいくと&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;かな。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;matome&amp;quot;&amp;gt;まとめ&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;最後にまとめると、&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;をセールで買ってみて、自分は良かったと思った。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;との違いは結構大きく、特に打鍵感・打鍵音はかなり異なる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;すごく主観的な意見を書くと、&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;はライト向けで、&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;は打鍵のフォームまで突き詰めたい玄人向けな気がしている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;理由はやっぱり普通に打っていると&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうが押下圧が軽く楽に感じるし、静音性はこちらがいいので場所を選ばず使いやすいと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;一方で&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;は打鍵のフォームを工夫すると楽しくなるというか、自分はそういう風に感じた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;指に返ってくるバネの弾力を脱力してうまく使えると、打っていて楽しいし指がキーから離れないようにすると打鍵音はとても気持ちが良い。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;自分は商品を受け取って 3 日くらいだが、&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の楽しさに気が付いて、今はこちらをメインで使おうかなと思っている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただ&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;のほうの良さも&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;と比較して改めて感じた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ので、HHKB の&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;を持っている人でも&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の購入を検討されるのもいいのではないでしょうか？&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;（ただ割引があっても高いので、できれば試し打ちするのがいいと思う。）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;she-zu&amp;quot;&amp;gt;蛇足&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;商品として Professional シリーズは必要十分なものを突き詰めて実現する、一度購入したら末永く使えるというコンセプトを強く感じられるから好き。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;自分はソフトウェア業界で働いているが、こだわりを持って作る人ほどいいものを作るな、と思った経験が何度かある。（そういう人は少数派で、とりあえず動くものを出す人が多い、、）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;こだわりというか深く突き詰めて設計・実装されたもの、が正しいかも。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;そういうものを見ると何であれ、自分はうれしくなる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;HHKB の Professional シリーズはそういう美学を感じさせてくれるので手元にあると色々と開発が楽しい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これからも感謝しながら使っていきたいと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>HHKB　Professional HYBRID</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;hhkb-types&#x2F;"/>
+                <updated>2025-04-19T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;hhkb-types&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;gai-yao&amp;quot;&amp;gt;概要&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;HHKB Professional HYBRID (non-TypeS)が Amazon でセール中
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;このブログはアフィリエイト目的ではないのでリンクは貼らない&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;フラッグシップの静音タイプ(Type-S)ではないので注意&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;7,100 円安くなっている（！）&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;自分は買った&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;HHKB Professional HYBRID Type-S 英語配列を 3 年使った感想
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;人を選ぶのは間違いない。ただ自分は周り周って HHKB に戻ってきた。あと 10 年くらいは使う&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;パームレストはタイピングフォームを工夫すれば不要
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;てか机の上を広く使えて持ち運べるのが魅力なのにパームレスト使ったら本末転倒では？&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;長時間タイピングしていても指が疲れない。これは本当にすごい&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;キー数が少ないが、キーマップを変更できるので工夫すれば問題ない
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;英語配列だけど日本語入力はスムーズにできる（スペースバーの両隣を IME ON&amp;#x2F;OFF に設定）&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;Fn キーは左手に寄せてタッチタイピング可能にしている&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ここら辺の工夫が楽しいひとには向いていると思う&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;静音性を謳っているが HHKB の筐体の作りはそもそも音が鳴るように作られている気がしていて、古株ユーザーのレビューを見てもそれが魅力の商品だったのではという推測
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;だから今回 non-TypeS を買うことにした&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h2 id=&amp;quot;hhkb-professional-hybrid-non-types-ga-amazon-deseruzhong&amp;quot;&amp;gt;HHKB Professional HYBRID (non-TypeS)が Amazon でセール中&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;セール中！ってこのブログに書く意味は薄いかもしれないが、知らない人がいたら参考になるといいなと。
+HYBRID を買おうか迷っていた人は買った方がいいと思う。
+注意点はユーチューバーが宣伝している&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;ではないというところ。
+ガジェット系ユーチューバーがドヤ顔で「HHKB のスコスコした打鍵音が～」とか言ってるやつではない。
+ちなみにキーボード界隈のユーチューバーで、&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;を持ってドヤっている人が多数いるが本当に普段使ってるんか？
+コメント全部とは言わないが感想とか浅いんだよな。解像度が低いというか。
+中には有用な情報を発信する普段使いしていそうな人もいる。
+ただそういう人の動画はニッチだし、綺麗事言わないので再生数伸びてないよね。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;HHKB を宣伝して再生数稼いでる系のユーチューバーははっきり言って嫌い。値段と雰囲気しか言わないじゃん。でもそれがマーケティングとしては正解なんだよな。
+現実を見て買う人間は少数派で、大多数は雰囲気で買う。これが資本主義の辛いところ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;マーケティングの話になると、PFU は HHKB の試し打ちを一部の意識高いコワーキングスペースにしか展開しなかった。これは正直悪手では？と思っている。
+ユーザーが３万越えのキーボードを試し打ちせずに買うか？まあここら辺は事情が知れないし、いちユーザーの言うことではないが。
+でももし&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;と&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の両方が試し打ちできる場所が身近にあれば、もしかしたら&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;を買っていたかもしれない。
+結局、自分が&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;にしたのは３万越えのキーボードを買うのなら数千円多くなっても高い方が安牌だと思ったから。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;閑話休題。Amazon の前は楽天でセールしていたので、もしかすると&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の在庫整理かなという気がしている。
+PFU が富士通からリコーに売却されて、ラインナップの見直しみたいなものが行われたのかもしれないと推測。廃版の可能性？
+そうなると&amp;lt;code&amp;gt;non-TypeS&amp;lt;&amp;#x2F;code&amp;gt;を手に入れる最後のチャンスの可能性があったので、今回購入することにした。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;とはいえ 2 万 5 千円のキーボードを買うのは迷った。&amp;lt;del&amp;gt;薄給リーマンなので。&amp;lt;&amp;#x2F;del&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;購入に当たっては&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の情報、特に&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;から乗り換えた人の話を ChatGPT の&amp;lt;code&amp;gt;Deep Research&amp;lt;&amp;#x2F;code&amp;gt;を使って調べた。日本語以外の情報も知りたかったので。
+&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;docs.google.com&amp;#x2F;document&amp;#x2F;d&amp;#x2F;1NA0B0Pna1EexmiVbewubddg-kwuUADfj_rEZe0SxX1I&amp;#x2F;edit?usp=sharing&amp;quot;&amp;gt;HHKB HYBRID Type-S 無印 比較調査資料&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;まあ正直これ読んで購入決めたわけではない。amazon のレビューで&amp;lt;code&amp;gt;classic&amp;lt;&amp;#x2F;code&amp;gt;に対するコメントは&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;と違ってなんというか、HHKB に対する愛があるような気がしたから。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;※&amp;lt;code&amp;gt;classic&amp;lt;&amp;#x2F;code&amp;gt;は&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の有線版&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;あと個人的には&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;のちょっと擦れるような打鍵感には不満があった。だから&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;によって最高の打鍵感を手に入れられると思った。これは次の&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;の感想に詳しく書きたい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;hhkb-professional-hybrid-type-s-ying-yu-pei-lie-wo-3-nian-shi-tutagan-xiang&amp;quot;&amp;gt;HHKB Professional HYBRID Type-S 英語配列を 3 年使った感想&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;自分が今使っている&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;を買ったのは 2022 年の 4 月とか。
+大学生活の最後のほうで、コロナ禍をきっかけにプログラミングを始めて２か月くらいのとき。
+Mac のパンタグラフのキーボードだと指が痛くなったので、思い切ってバイト代を貯めて買った。
+当時 emacs を使っていて、生みの親であるストールマンが使っていたというエピソードで HHKB を知った。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;そっから使い続けてきたが、高さに慣れずパームレストを買うという発想がなかったので手首が辛くなって別のキーボードと行ったり来たりしていた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;今はタイピングフォームを工夫することで HHKB をパームレスト無しで使っている。
+指を伸ばさず、丸めて手首が立った状態でタイピングをするといい。タイピングのイメージとしてはキーの表面を手前にひっかくような感じ。
+スペースキーの左右にある余白に手のひらが軽く当たって、スペースバーに親指が乗ると肩は開くし
+リストレスト無しでリラックスできる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;HHKB を買って良かったのは、何時間タイピングしても疲れない。3 万 5 千円の価値はあったと自分は思っている。
+キー数は少ないが、キーマップは変更できるので問題はない。IME の ON&amp;#x2F;OFF はスペースバーの両隣に置いているし、Fn8~12 がタッチタイピングしずらいので左手の近くに置いている。この Fn キーのリマップする
+発想を amazon のレビューで見つけるまで、コーディングの際はフルサイズのキーボードを使いたいなと
+思ったりしていた。今はまったく問題がない。Windows&amp;#x2F;Mac&amp;#x2F;Linux どの OS でもこの１台で完結する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;タイピング音に関しては、そんなに静かでもないと個人的には思っている。オフィスで使えはすると思うが、フェルトマットを敷かないと底打ちの音が机によっては響くと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;なんだかんだ一般的なメンブレンと同じくらいの音量はする。エンター強めに押す人は底打ちの音が結構うるさいと思う。吸振マットつけてもあんまりここは変わらない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;補足すると、吸振マットは効果はある。オフィスで使うなら買った方がいい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;こっからは特に自分の主観と憶測になるのだけれど、HHKB の筐体の底を指で叩くと音が響くのがわかると思う。
+この響き方って楽器、特にピアノに似ている気がするんだよね。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;底打ちの音が大きいって言ったけど、意図してこういう作りになっている気がしている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;実際音は大きいけど、打っている人は気持ちいい。&amp;lt;code&amp;gt;Type-S&amp;lt;&amp;#x2F;code&amp;gt;を使ってはいるが、静音性は
+HHKB の魅力ではなくむしろ良さを損なっているのではないか？&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;このような考えに至って、&amp;lt;code&amp;gt;non Type-S&amp;lt;&amp;#x2F;code&amp;gt;の購入を決めたというわけ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;届いたら、また感想をブログに書きたいと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>MCP 使ってみた</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;mcp-server&#x2F;"/>
+                <updated>2025-04-13T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;mcp-server&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;gai-yao&amp;quot;&amp;gt;概要&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;VS Code の&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;docs.github.com&amp;#x2F;ja&amp;#x2F;copilot&amp;#x2F;building-copilot-extensions&amp;#x2F;building-a-copilot-agent-for-your-copilot-extension&amp;#x2F;about-copilot-agents&amp;quot;&amp;gt;Github Copilot agent&amp;lt;&amp;#x2F;a&amp;gt;と &amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;github&amp;#x2F;github-mcp-server&amp;quot;&amp;gt;Github MCP Server&amp;lt;&amp;#x2F;a&amp;gt;を連携させることで&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;docs.devin.fm&amp;#x2F;jp&amp;quot;&amp;gt;Devin&amp;lt;&amp;#x2F;a&amp;gt;のような AI Agent を安価に構築することを試した
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;Github 上の issue を読み込んで Pull Request を作成することに成功した&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;Pull Request の精度は良くなかった。これは MCP というよりコンテキストの渡し方に問題があったと考えられる&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h2 id=&amp;quot;bei-jing&amp;quot;&amp;gt;背景&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;商用の AI エージェント、&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;docs.devin.fm&amp;#x2F;jp&amp;quot;&amp;gt;Devin&amp;lt;&amp;#x2F;a&amp;gt;等は高コストであり、気軽に利用することはできなかった。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;しかし最近登場した MCP と Copilot agent を組み合わせ、低コストの AI エージェントを作ることができればより効率のよい開発に繋がると考えた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;fang-fa&amp;quot;&amp;gt;方法&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h3 id=&amp;quot;qian-ti-tiao-jian&amp;quot;&amp;gt;前提条件&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;VSCode の agent mode が有効になっていること
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;やり方はググって
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;参考：
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;code.visualstudio.com&amp;#x2F;blogs&amp;#x2F;2025&amp;#x2F;02&amp;#x2F;24&amp;#x2F;introducing-copilot-agent-mode&amp;#x2F;&amp;quot;&amp;gt;https:&amp;#x2F;&amp;#x2F;code.visualstudio.com&amp;#x2F;blogs&amp;#x2F;2025&amp;#x2F;02&amp;#x2F;24&amp;#x2F;introducing-copilot-agent-mode&amp;#x2F;&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.blog&amp;#x2F;jp&amp;#x2F;2025-04-07-github-copilot-agent-mode-activated&amp;#x2F;&amp;quot;&amp;gt;https:&amp;#x2F;&amp;#x2F;github.blog&amp;#x2F;jp&amp;#x2F;2025-04-07-github-copilot-agent-mode-activated&amp;#x2F;&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;github&amp;#x2F;github-mcp-server#prerequisites&amp;quot;&amp;gt;Github MCP Server 利用の前提条件&amp;lt;&amp;#x2F;a&amp;gt;をクリアしていること&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h3 id=&amp;quot;github-noakusesutokunqu-de&amp;quot;&amp;gt;Github のアクセストークン取得&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;Copilot に利用させるアクセストークンを Github で生成する。
+（PC）Github のページ右上のアイコン押下 -&amp;amp;gt; &amp;lt;code&amp;gt;Setting&amp;lt;&amp;#x2F;code&amp;gt; -&amp;amp;gt; &amp;lt;code&amp;gt;Developer Settings&amp;lt;&amp;#x2F;code&amp;gt; -&amp;amp;gt; &amp;lt;code&amp;gt;Personal access tokens&amp;lt;&amp;#x2F;code&amp;gt;から&amp;lt;code&amp;gt;Fine-grained tokens&amp;lt;&amp;#x2F;code&amp;gt;を作成
+&amp;lt;img src=&amp;quot;&amp;#x2F;images&amp;#x2F;2025-04-12&amp;#x2F;1.png&amp;quot; alt=&amp;quot;Githubの右上のアイコンをクリック&amp;quot; &amp;#x2F;&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h4 id=&amp;quot;she-ding-li&amp;quot;&amp;gt;設定例&amp;lt;&amp;#x2F;h4&amp;gt;
+&amp;lt;p&amp;gt;アクセストークンにはエージェントに必要な最低限の権限のみを付与する。
+今回はプライベートリポジトリにある issue と PR を扱うための権限のみを設定した。以下に設定例を記載しておく。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;img src=&amp;quot;&amp;#x2F;images&amp;#x2F;2025-04-12&amp;#x2F;2.png&amp;quot; alt=&amp;quot;アクセストークン設定例&amp;quot; &amp;#x2F;&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;補足：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;リポジトリは適当（一応固定したけどしなくてもいいかも）&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;code, issues, pull requests に関して権限を付与&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h3 id=&amp;quot;settings-jsonhe-mcp-server-noshe-ding-wozhui-ji&amp;quot;&amp;gt;&amp;lt;code&amp;gt;settings.json&amp;lt;&amp;#x2F;code&amp;gt;へ MCP Server の設定を追記&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;VSCode の設定(&amp;lt;code&amp;gt;Ctrl-,&amp;lt;&amp;#x2F;code&amp;gt;)から&amp;lt;code&amp;gt;settings.json&amp;lt;&amp;#x2F;code&amp;gt;を開き以下を記載する。
+アクセストークンには Github で作成したアクセストークンを貼り付ける。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;pre data-lang=&amp;quot;json&amp;quot; style=&amp;quot;background-color:#2b303b;color:#c0c5ce;&amp;quot; class=&amp;quot;language-json &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-json&amp;quot; data-lang=&amp;quot;json&amp;quot;&amp;gt;&amp;lt;span&amp;gt;  &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;mcp&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: {
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;    &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;servers&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: {
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;      &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;github&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: {
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;        &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;command&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;docker&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;,
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;        &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;args&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: [
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;run&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;,
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;-i&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;,
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;--rm&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;,
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;-e&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;,
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;GITHUB_PERSONAL_ACCESS_TOKEN&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;,
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;ghcr.io&amp;#x2F;github&amp;#x2F;github-mcp-server&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;        ],
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;        &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;env&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: {
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;          &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;GITHUB_PERSONAL_ACCESS_TOKEN&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;: &amp;amp;quot;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;&amp;amp;lt;アクセストークン&amp;amp;gt;&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;&amp;amp;quot;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;        }
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;      }
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;    }
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;  }
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;pre&amp;gt;
+&amp;lt;p&amp;gt;参考：&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;github&amp;#x2F;github-mcp-server#usage-with-vs-code&amp;quot;&amp;gt;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;github&amp;#x2F;github-mcp-server#usage-with-vs-code&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;mcp-sabanoqi-dong-dong-zuo-que-ren&amp;quot;&amp;gt;MCP サーバの起動／動作確認&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;※Docker を起動しておく&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;MCP サーバを起動するやり方はいくつかある。
+&amp;lt;code&amp;gt;settings.json&amp;lt;&amp;#x2F;code&amp;gt;に&amp;lt;code&amp;gt;起動&amp;lt;&amp;#x2F;code&amp;gt;ボタンが表示されているなら押下して起動できる。
+もしくはコマンドパレット&amp;lt;code&amp;gt;Ctrl + Shift + P&amp;lt;&amp;#x2F;code&amp;gt;から&amp;lt;code&amp;gt;MCP: サーバの一覧表示&amp;lt;&amp;#x2F;code&amp;gt;を出して github を選択してもできる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;MCP サーバを起動させたら、Copilot を agent モードにして、以下のプロンプトを入力し Github MCP Server が動いているか確認する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;（リポジトリ URL にプライベートリポジトリを指定する。 MCP のアクセストークンが正しく設定できていなければタスクが失敗する。）&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;プロンプト：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;pre data-lang=&amp;quot;text&amp;quot; style=&amp;quot;background-color:#2b303b;color:#c0c5ce;&amp;quot; class=&amp;quot;language-text &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-text&amp;quot; data-lang=&amp;quot;text&amp;quot;&amp;gt;&amp;lt;span&amp;gt;&amp;amp;lt;リポジトリURL&amp;amp;gt;のissue一覧を表示して
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;pre&amp;gt;
+&amp;lt;p&amp;gt;結果（参考）：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;pre data-lang=&amp;quot;md&amp;quot; style=&amp;quot;background-color:#2b303b;color:#c0c5ce;&amp;quot; class=&amp;quot;language-md &amp;quot;&amp;gt;&amp;lt;code class=&amp;quot;language-md&amp;quot; data-lang=&amp;quot;md&amp;quot;&amp;gt;&amp;lt;span&amp;gt;以下は、リポジトリ「memo-todo-app」の現在のオープンな Issue 一覧です：
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;1. &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**アプリ公開のロードマップ**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt; (#1)
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**内容**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: アプリ公開に向けたタスク一覧が記載されています。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - コードレビュー
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - GCP にデプロイ
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - 動作確認
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - 広告を搭載
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - 課金機能実装
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - ドメインの取得
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - LP の作成／マーケティング
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - リリース
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**作成日**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: 2025 年 4 月 13 日
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#d08770;&amp;quot;&amp;gt;[Issue リンク](https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;kawaneao1996&amp;#x2F;memo-todo-app&amp;#x2F;issues&amp;#x2F;1)
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;2. &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**ソースコード上の&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#a3be8c;&amp;quot;&amp;gt;`any`&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;型を無くしコードの可読性を向上させる**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt; (#2)
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**内容**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;`any`&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;型を具体的な型に置き換え、コードの可読性と型安全性を向上させる提案。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;`any`&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;型の箇所を特定
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - 適切な型定義を作成
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - テストを実行し動作確認
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**ラベル**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;`enhancement`&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;, &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;`refactor`
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**作成日**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: 2025 年 4 月 13 日
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#d08770;&amp;quot;&amp;gt;[Issue リンク](https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;kawaneao1996&amp;#x2F;memo-todo-app&amp;#x2F;issues&amp;#x2F;2)
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;3. &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**アプリケーションのタイトルと Favicon を設定する**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt; (#3)
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**内容**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: アプリのタイトルを「Google Drive マークダウンメモアプリ」に変更し、Favicon を設定する。
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;     - 必要に応じて&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#a3be8c;&amp;quot;&amp;gt;`index.html`&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;を編集
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;font-weight:bold;color:#ebcb8b;&amp;quot;&amp;gt;**作成日**&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;: 2025 年 4 月 13 日
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;   - &amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#d08770;&amp;quot;&amp;gt;[Issue リンク](https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;kawaneao1996&amp;#x2F;memo-todo-app&amp;#x2F;issues&amp;#x2F;3)
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span style=&amp;quot;color:#bf616a;&amp;quot;&amp;gt;
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;span&amp;gt;必要な詳細や対応があればお知らせください！
+&amp;lt;&amp;#x2F;span&amp;gt;&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;pre&amp;gt;
+&amp;lt;h3 id=&amp;quot;pull-request-zuo-cheng-noyi-lai&amp;quot;&amp;gt;Pull Request 作成の依頼&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;MCP サーバが動いているので、issue の内容を読み込み Pull Request を作成させた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただし Pull Request の精度は悪かった。原因としては以下が考えられる：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;コンテキストが不足していた&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;プロンプトが不十分だった&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;タスクの分割が不十分だった&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;p&amp;gt;上記に関しては MCP とは関係がないのでここにはこれ以上書かないが、継続して改善していきたい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;kao-cha&amp;quot;&amp;gt;考察&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;Copilot agent でタスクをこなすには、Claude Code や他のエージェントより細かい指示だしが必要という体感があった。
+推論して試行錯誤する機能が他のエージェントと比較して弱いのだろうか？&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただここは改善される可能性があるので Copilot には今後も期待したい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;jie-lun&amp;quot;&amp;gt;結論&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;GitHub Copilot Agent と GitHub MCP Server を用いた AI エージェント構築の可能性を示した。今後はコンテキストの渡し方を改善し、精度向上を目指す。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;she-zu&amp;quot;&amp;gt;蛇足&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;最近 VSCode の利用アンケートに回答した。その内容から MS は Copilot を従量課金にするか、もっと値上げしたプランで Agent を使わせたいのかなって思った。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;MCP が勃興すると SaaS が死ぬという言説をどっかの YouTube で見た。 SaaS の UI が AI Agent に置き換わる可能性は大いにあるよなあ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;一方で MCP の仕様が大きく変わる可能性もあるので今 MCP でスタートアップに全力注ぐのはどうなの？って言説もあった。&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;個人的にプログラミングや AI 関連で検索エンジン叩くと広告しか出てこない現状に死ぬほどイライラするので、検索はすべてエージェントにさせる未来が来てほしい&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;Google ではなく DuckDuckGo 使うか...&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;あとこの記事には書いていないが、&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;docs.anthropic.com&amp;#x2F;ja&amp;#x2F;docs&amp;#x2F;agents-and-tools&amp;#x2F;claude-code&amp;#x2F;overview&amp;quot;&amp;gt;Claude Code&amp;lt;&amp;#x2F;a&amp;gt; も試してみてなかなか良かった。Agent としては Cline よりも精度が高く速い気がした。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;Pull Request の作成は Claude Code のほうが精度がいいので Claude Code を MCP サーバとして利用すれば改善するかも&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;（でもそれなら Claude Code を使えばいいじゃんという..）&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;ちなみに Claude Code を MCP サーバとして利用できる（≠ Claude Desktop で MCP サーバを利用する）という話はどこかで読んだけど、出典はどっか行った。ウソかもしれん。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;Claude Code から MCP サーバは利用できるのだろうか？（Claude Desktop からは利用できる）あとで調べたい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>経済とかわからんけど</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;economy&#x2F;"/>
+                <updated>2025-04-12T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;economy&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;jing-ji-noding-yi-toha&amp;quot;&amp;gt;経済の定義とは？&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;COTEN ラジオで硬貨と貨幣は出自が違う、という話を聞いて
+ふとそもそも経済ってなんだろうかと考えた。
+通貨ってのは交換可能な価値の具現化であって、それそのものが
+経済かというと違う気がする。単体では意義を為さないわけだし。
+経済の実体とは何か？と考えていくと富の生産と貯蔵・流通・分配の仕組み
+かもしれないなと思った。富をもっと平たく言うと人間の生存に
+必要な物資で、食べ物とエネルギー、水、その他インフラってやつか。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これから新しい時代に移り変わる中で、大多数の負け組と少数の勝ち組に別れるのだと
+ある人に教えてもらったが、負け組の中で新しく生まれる価値観こそ、次の時代を生む原動力になるのだろう。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;新しい価値観を設計するのは、最も冷静に事実が見えている人だから。経済を最も冷静に見ているのは、
+その時代で最も飢えている人間に他ならないだろう。つまりそれは負け組ということだ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;en-ren-nohanasi&amp;quot;&amp;gt;恩人のはなし&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;以下はお世話になってる人からいただいたメッセージです。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ネットに公開してもいいよってことなのでここに置きます。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;「
+ウクライナ戦争の終わりとともに
+量から質の経済構造転換が
+本格的にスタートする&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;混沌から新たな創造の始まりの時代は
+三大国の消滅もしくは崩壊が起こりはじめた時&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ウクライナ戦争の行方は今後の全世界経済の流れをおおきく形作る
+だから次代の経済を牛耳るものは
+現在
+世界情勢で　この戦争の帰結を注視する&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;2025 年のある段階で
+円高および株安が起こる危険性がある&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;どの段階でそれが行われるかは月初に月末の天気を占うようなものだ&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただ
+季節の到来に近いくらいの確実さをもって到来する&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ウクライナ戦争が終わるのは早くて 2027 から
+遅くても 2028 まで&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;2022 から終戦までの
+時期につけられたしるしが
+今後の世界の経済のニーズを探る上での鍵となる&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ロシアは間違いなく分裂する&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;中国は大きく衰退する
+ただ
+4 カ国か 5 カ国に分裂できれば
+経済面での立ち直りは早くなる&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;欧州が一時的に
+19 世紀ごろの勢いを取り戻す可能性が強い&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;日本から
+土器に匹敵する発明が起こる可能性がある&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;その発明がアフリカの多くを栄えさせる&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ファンタジーと魔法のように見える文明が
+新時代のある時期から勃興する&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ロシア内戦前&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;メガ国際企業が衰退　分裂し
+多くの企業が勃興する&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;新しく勃興する多くの企業は市場征服を企まない&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;なぜなら質の時代の転換であるし&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;最大効率の利益を得るには
+巨大化はあまりにも効率が悪い事を知っているから&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;世界征服という現象はありえない&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;世界征服できるという事は
+世界が存在しないという事だから&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;」&amp;lt;&amp;#x2F;p&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>電子書籍サービスの比較</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;ebook-comparision&#x2F;"/>
+                <updated>2025-01-12T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;ebook-comparision&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;yao-yue&amp;quot;&amp;gt;要約&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;自分が技術書を電子で買う時に選ぶサービスの優先順位&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;hebinoashi.netlify.app&amp;#x2F;blogs&amp;#x2F;ebook-comparision&amp;#x2F;bHWT_MwaaP3mSYE&amp;quot;&amp;gt;SEShop&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;pdfで書籍のダウンロードができる&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;クーポンやセールを利用するとポイントを利用して半額で買えたりする&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;honto.jp&amp;#x2F;&amp;quot;&amp;gt;honto&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;専用のアプリかブラウザで閲覧&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ブラウザに対応していない書籍もあり&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;kindle&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;安パイだけど重いし、Linuxで見れない&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;unext&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;ブラウザだけだが、軽いのでストレスはない&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;h2 id=&amp;quot;konoji-shi-woshu-itajing-wei&amp;quot;&amp;gt;この記事を書いた経緯&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;自分はソフトウェアエンジニアとして書籍から学習することが多い。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;その際に内容の賞味期限が長いものは紙で買い、ライブラリやフレームワーク
+に関連する等のすぐに情報が古くなるものは電子書籍で買うことにしている。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;このような考えの人向けに、現状自分が技術書を電子で買う際のプラットフォームの優先順位を書いてみた（とはいえ4つだけだが）。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;ge-sabisunosuo-gan&amp;quot;&amp;gt;各サービスの所感&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h3 id=&amp;quot;ping-jia-ji-zhun-shi-yang-duan-mo&amp;quot;&amp;gt;評価基準・仕様端末&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;自分の中の要望として、以下がある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;ベンダロックインしない形式でダウンロードしたい（pdfなど）
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;サービス終了が怖いので、永続的に閲覧可能な形式が良い&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;専用のアプリはLinuxでも出すか、全書籍をブラウザで見れるようにしてほしい
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;ソフトウェアの技術書を買う人はLinuxを使ってる人が多いのでは？&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;アプリのインストール、アップデートは手間
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;アップデート後に再ログインさせられるのは苦痛&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;p&amp;gt;上記の要望をもとに、以下に各サービスを比較する。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;あと補足として自分の端末はもっぱらPCでたまにiPad。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;seshop&amp;quot;&amp;gt;SEShop&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;まず書籍をpdfで買えると言うのがSEShopのいいところだと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ダウンロードしたpdfのフッターに小さく透かしで購入者のメールアドレスが埋め込まれるが、閲覧に問題はない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;pdf形式なのでデバイスによらず閲覧できてとてもいい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;あとたまに40%, 50%といったポイントがつくセールをやっていたり、クーポンを配布したりしている。かなりお得に買えるので、上記の情報が配信されるメルマガは登録するのがおすすめ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;欠点は今のところない。翔泳社以外の書籍は置いてないが、まあ書店のサービスではないので。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;自分としてはとてもいいサービスだと思っているので、続いてほしいと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ちなみに回し者ではない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;honto&amp;quot;&amp;gt;honto&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;ePubで買えるというので使ってみた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;閲覧方法は２つ。アプリかブラウザか。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;でもブラウザに対応していない書籍もあるので、メインはアプリを
+インストールして読むになる。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;Linuxにはアプリがないのが不満。あと書籍によってはブラウザで見れないのはちょっと嫌（kindleもそう）。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただ、アプリのUIはいいと思う。kindleより使いやすい。
+支払いにPayPayが使えるのも個人的にいい。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;トータルで購入から閲覧までのUXはkindleよりもいいと思う。おすすめが表示されるタイミングや頻度も控えめでいい感じ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただ閲覧はアプリ依存で、kindleほど大手ではないという不安がある。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;kindle&amp;quot;&amp;gt;kindle&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;Amazonが潰れたら見れなくなる（紙の本とほぼ同じ値段なのに！）、アプリが重い（個人的感想）、
+Linuxのアプリがない（頑張れば見れるらしいが正規の方法ではないので、使えなくなったりもするだろう）、おすすめの本とかで広告が出てくる、といった悪い印象しかない。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;おすすめはあってもいいけど、出し過ぎはうるさいよね。せめて非表示を選ばせてほしい。正直kindleはUI&amp;#x2F;UXが悪いと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;しかし品揃えはいいから、結局これになる場合が多い。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h3 id=&amp;quot;unext&amp;quot;&amp;gt;unext&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;ダウンロードはない。ただブラウザでの閲覧が軽くてUIも使いやすい。
+ライトな感想しかないが、そんなところ。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;matome&amp;quot;&amp;gt;まとめ&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;正直、自分の知らない電子書籍のサービスはまだあると思うし、この順位の妥当性にも議論の余地があると思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;とはいえ今の自分の中の正直な順位であって、これから電子書籍サービスを比較している方の参考になればと思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;she-zu&amp;quot;&amp;gt;蛇足&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;余談だが、これから電子書籍サービスの使い勝手が向上するためにはネット上でのアイデンティティや著作物の取り扱いについての技術革新が必要になると思う。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;日本ではWeb3.0は詐欺師のバズワード化してるが、その中に分散型アイデンティティ（DID）、検証可能なクレデンシャル（VC）の仕様があってそこらへんはこういった問題に有効だと自分は思っていたりする。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;まあ、仮にそういう革新があったとしても異なる出版社をまとめてプラットフォームに組み込むのが大変なのかもしれないが。日本人は個人や各社レベルでの頑張りは得意だけど、プラットォーム化するのは下手だよなっていうこれは完全に個人的偏見。ルールや市場、標準仕様を作り運営することで管理する側の特権を得るみたいな勝ち方はヨーロッパやアメリカの人の方が上手いね。中国も標準化や仕様については力を入れるが、やり方が強引になる印象。審査員を買収したり、あるいは自国の人間んで審査員を固めたりとか。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;とはいえ、日本人から一人でもいいのでそういう勝ち方ができる人間が出て来ればことコンテンツ業界では自国が強いのでゲームチェンジできる気がしているし、それを実行できる環境が時代の流れとして生まれてきている気がしているのは私だけでしょうか？&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ただあからさまにこういう勝ち方をしてしまうと欧米資本に潰されるのが目に見えているので何か工夫は必要そう。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;ここまで書いて完全に頭がおかしい人と思われてそうだが、そう思った人は見なかったことにしてもらって…。蛇足でした。&amp;lt;&amp;#x2F;p&amp;gt;
+</content>
+            </entry>
+            
+        
+            
+            <entry>
+                <title>zolaで始めるブログ</title>
+                <link href="https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;start-blog&#x2F;"/>
+                <updated>2025-01-07T00:00:00+0000</updated>
+                <id>https:&#x2F;&#x2F;hebinoashi.netlify.app&#x2F;blogs&#x2F;start-blog&#x2F;</id>
+                <content type="html">&amp;lt;h2 id=&amp;quot;ji-shu-sutatuku&amp;quot;&amp;gt;技術スタック&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;h3 id=&amp;quot;ssg-huremuwaku&amp;quot;&amp;gt;SSG フレームワーク&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;→&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;&amp;quot;&amp;gt;zola&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;以下特徴：&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;Rust 製の SSG フレームワーク&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;markdown で記事を書くことができる&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;Rust 製だから早い&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;有志のテーマが充実（個人的感想）&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;日本語のドキュメントがほぼないのがちょっとマイナス
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;でも mermaid の導入とか日本語の記事があったり
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;tech.yukashikado.co.jp&amp;#x2F;posts&amp;#x2F;powered-by-zola&amp;#x2F;&amp;quot;&amp;gt;Rust 製の Zola でテックブログをつくった感想&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;h3 id=&amp;quot;shi-yong-tema&amp;quot;&amp;gt;使用テーマ&amp;lt;&amp;#x2F;h3&amp;gt;
+&amp;lt;p&amp;gt;→&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;Speyll&amp;#x2F;anemone.git&amp;quot;&amp;gt;anemone(github repository)&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;正直、めっちゃおしゃれだと思う。開発者さんに感謝。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;jing-wei&amp;quot;&amp;gt;経緯&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;エンジニアとして得た知見を発信したかったため。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;以前は&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;fresh.deno.dev&amp;#x2F;&amp;quot;&amp;gt;deno&amp;#x2F;fresh&amp;lt;&amp;#x2F;a&amp;gt;を使って markdown からサイトを表示する SSG を自作していた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;シンタックスハイライトや、mermaid.js の組み込みを頑張ったりしていたが、記事のタグ付けの実装あたりで車輪の再発明が辛くなった。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;また deno deploy ができて便利だったが、金欠のため課金をやめてしまったのでそのタイミングで zola に切り替えた。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;これを書いている段階では公開されてないが、これから github actions で公開する予定。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;h2 id=&amp;quot;zola-woshi-tutaburogunoshi-mefang&amp;quot;&amp;gt;zola を使ったブログの始め方&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;p&amp;gt;基本は&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;getting-started&amp;#x2F;overview&amp;#x2F;&amp;quot;&amp;gt;公式の手順&amp;lt;&amp;#x2F;a&amp;gt;の通り。&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;p&amp;gt;個人的なアドバイスポイントは、&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;zola init&amp;lt;&amp;#x2F;code&amp;gt; の直後に &amp;lt;code&amp;gt;zola serve&amp;lt;&amp;#x2F;code&amp;gt; を行い、続けて theme をセッティングする
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;公式の通りに進めても、&amp;lt;code&amp;gt;zola serve&amp;lt;&amp;#x2F;code&amp;gt; が意図しないタイミングでこけた&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;チュートリアル完了後に theme を設定しても反映されなかった（なので&amp;lt;code&amp;gt;zola init&amp;lt;&amp;#x2F;code&amp;gt;の直後に theme を設定する。これだとうまくいく）
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;俗に言う「おまかん」：お前の環境だけだ！の可能性あり&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;zola のインストール &amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;getting-started&amp;#x2F;installation&amp;#x2F;&amp;quot;&amp;gt;インストール方法（公式）&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;zola init myblogs&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;ここですぐに&amp;lt;code&amp;gt;zola serve&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;（任意の theme を設定）⇦ ここは任意かも
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;themes&amp;#x2F;&amp;quot;&amp;gt;テーマ一覧&amp;lt;&amp;#x2F;a&amp;gt;から好きなテーマを探す&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;&amp;#x2F;themes&amp;#x2F;&amp;lt;&amp;#x2F;code&amp;gt;以下にリポジトリをクローン&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;（追加の処理があれば）テーマのリポジトリの指示を実行&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;後はチュートリアル通り&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;h2 id=&amp;quot;sonota-bu-zu&amp;quot;&amp;gt;その他補足&amp;lt;&amp;#x2F;h2&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;作成したブログのリポジトリ(&amp;lt;code&amp;gt;zola init&amp;lt;&amp;#x2F;code&amp;gt;したディレクトリ)をクローンする際には themes 以下をサブモジュール化する&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;blockquote&amp;gt;
+&amp;lt;p&amp;gt;In either case, it seems to work best if you use git submodule to include your theme, e.g.:&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;blockquote&amp;gt;
+&amp;lt;blockquote&amp;gt;
+&amp;lt;p&amp;gt;&amp;lt;code&amp;gt;git submodule add https:&amp;#x2F;&amp;#x2F;github.com&amp;#x2F;getzola&amp;#x2F;after-dark.git themes&amp;#x2F;after-dark&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;&amp;#x2F;blockquote&amp;gt;
+&amp;lt;ul&amp;gt;
+&amp;lt;li&amp;gt;引用：&amp;lt;a href=&amp;quot;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;deployment&amp;#x2F;github-pages&amp;#x2F;&amp;quot;&amp;gt;https:&amp;#x2F;&amp;#x2F;www.getzola.org&amp;#x2F;documentation&amp;#x2F;deployment&amp;#x2F;github-pages&amp;#x2F;&amp;lt;&amp;#x2F;a&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;
+&amp;lt;p&amp;gt;サブモジュールが含まれるリポジトリのクローン方法&amp;lt;&amp;#x2F;p&amp;gt;
+&amp;lt;ol&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;git submodule init&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;li&amp;gt;&amp;lt;code&amp;gt;git submodule update&amp;lt;&amp;#x2F;code&amp;gt;&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ol&amp;gt;
+&amp;lt;&amp;#x2F;li&amp;gt;
+&amp;lt;&amp;#x2F;ul&amp;gt;
+</content>
+            </entry>
+            
+        
+    
+</feed>

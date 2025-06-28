@@ -1,0 +1,45 @@
+<!doctype html><html lang=en><head><meta charset=UTF-8><meta content="width=device-width,initial-scale=1.0" name=viewport><meta content="index, follow" name=robots><link href=https://hebinoashi.netlify.app/rss.xml rel=alternate title=RSS type=application/rss+xml><title> | DioxusとNetlifyで作るWebアプリ</title><link as=style href=https://hebinoashi.netlify.app/css/style.css rel=preload><link crossorigin href=https://raw.githack.com/Speyll/suCSS/main/reset-min.css rel=stylesheet><link crossorigin href=https://raw.githack.com/Speyll/suCSS/main/suCSS-min.css rel=stylesheet><link href=https://hebinoashi.netlify.app/css/style.css rel=stylesheet><link href=https://hebinoashi.netlify.app/css/custom.css rel=stylesheet><link href=https://hebinoashi.netlify.app/favicon.ico rel=icon><body><nav id=nav-bar><a href=/> Home </a><a href=/blogs/> Blog </a><a href=/about/> About </a><div aria-label="Toggle theme" class=theme-toggle data-icon-base=https://hebinoashi.netlify.app/icons.svg data-icon-dark=#darkMode data-icon-light=#lightMode data-sound-src=https://hebinoashi.netlify.app/click.ogg id=theme-toggle role=button tabindex=0><svg class=icon><use id=theme-icon></use></svg></div></nav><main><article class=post><header class=post-header><time datetime=2025-05-04>Published on: <span class=accent-data>2025-05-04</span> </time><h1>DioxusとNetlifyで作るWebアプリ</h1></header><div class=toc-container><h2>Table of content</h2><ul><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#gai-yao>概要</a><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#bei-jing>背景</a><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#xiang-xi>詳細</a> <ul><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#puroziekutonozuo-cheng>プロジェクトの作成</a><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#dong-zuo-que-ren-bundle>動作確認／bundle</a><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#netlify-nidepuroi>Netlify にデプロイ</a></ul><li><a href=https://hebinoashi.netlify.app/blogs/dioxus-netlify/#can-kao-by-claude-3-7-sonnet-dioxus-nosabutenpuretonituite>（参考 by Claude 3.7 Sonnet）Dioxus のサブテンプレートについて</a></ul></div><div class=post-content><h2 id=gai-yao>概要</h2><ul><li><a href=https://dioxuslabs.com/>Dioxus</a>で Web アプリを作成したら<a href=https://www.netlify.com/>Netlify</a>にデプロイするのが楽<li><a href=https://astounding-gaufre-3c1912.netlify.app/>成果物（ポモドーロタイマー）</a></ul><h2 id=bei-jing>背景</h2><ul><li><code>Dioxus</code>は Rust 製の GUI フレームワークで、マルチプラットフォームが特徴 <ul><li>コンポーネントの記述はほぼ<code>React</code></ul><li>当初は Github Actions から Github Pages にデプロイしようとしていた <ul><li><code>dioxus-cli</code>のインストールが 10 分くらいかかるし、結局うまくいかなかったので Netlify にデプロイ<li>（補足）<a href=https://dioxuslabs.com/deploy/>Dioxus Deploy</a>が近日中にリリースされるらしい。それまでは Netlify でいいのでは</ul></ul><h2 id=xiang-xi>詳細</h2><p>ここでは<code>Dioxus</code>のプロジェクト作成からデプロイまでを簡単に説明する。<p>説明にあたり簡単なポモドーロタイマーのアプリを Github Copilot に作ってもらった。<p>ソースコードは<a href=https://github.com/kawaneao1996/pomodoro_timer>pomodoro_timer</a>に格納。<p><del>見るからに AI が作りました！というデザイン</del><h3 id=puroziekutonozuo-cheng>プロジェクトの作成</h3><p><a href=https://dioxuslabs.com/learn/0.6/getting_started/#>公式の Getting Started</a>を参考に<code>dioxus-cli</code>をインストール。<p>ターミナルから<code>dx --version</code>が実行できればインストール完了。<p>次にプロジェクト作成のためにターミナルから<code>dx init &LTproject名></code>を実行する。<p>(今回サブテンプレートは Bare-Bones を選択した。)<p>※ サブテンプレートについては（参考 by Claude 3.7 Sonnet）Dioxus のサブテンプレートについて を参照<p>（<code>dx init</code>したら一度<code>dx serve</code>を実行して、サンプルページが表示されることを確認すると良き）<p>あとは<code>main.rs</code>や<code>cargo.toml</code>を作っていくだけ。<h3 id=dong-zuo-que-ren-bundle>動作確認／bundle</h3><p>動作確認にはターミナルから<code>dx serve</code>を実行する。<p>bundle するには<code>dx bundle --platform web</code>をターミナルで実行<p>→<code>target\dx\&LTproject_name>\release\web\public</code>に html とその他の asset が生成される。<h3 id=netlify-nidepuroi>Netlify にデプロイ</h3><p>Netlify にログインして、前セクションの<code>public</code>ディレクトリをドラッグアンドドロップする。（<code>public</code>ディレクトリの中身ではなく、<code>public</code>フォルダ自体を入れる）<p>↓ にドラッグアンドドロップ <img alt=Netlifyのドラッグアンドドロップ先 src=/images/2025-05-04/image.png><p>これでデプロイが完了。<h2 id=can-kao-by-claude-3-7-sonnet-dioxus-nosabutenpuretonituite>（参考 by Claude 3.7 Sonnet）Dioxus のサブテンプレートについて</h2><pre class=language-markdown data-lang=markdown style=color:#c0c5ce;background-color:#2b303b><code class=language-markdown data-lang=markdown><span style=color:#8fa1b3># Dioxus のサブテンプレートについて
+</span><span>
+</span><span>Dioxus の</span><span style=color:#a3be8c>`dx new`</span><span>コマンドで表示される「サブテンプレート」は、新しいプロジェクトの初期構造を決める選択肢です。調査によると、以下の 3 つのオプションがあります：
+</span><span>
+</span><span style=color:#8fa1b3>## 1. Bare-Bones（ベアボーン）
+</span><span>
+</span><span>最もシンプルな構成です。
+</span><span>
+</span><span style=color:#bf616a>- main.rs ファイルと assets フォルダのみの基本的なセットアップ
+</span><span style=color:#bf616a>- 最小限の依存関係
+</span><span style=color:#bf616a>- 基本的な App コンポーネント以外の事前構築されたコンポーネントはなし
+</span><span style=color:#bf616a>
+</span><span>小規模なアプリケーションや、プロジェクト構造を一から構築したい場合に適しています。
+</span><span>
+</span><span style=color:#8fa1b3>## 2. Jumpstart（ジャンプスタート）
+</span><span>
+</span><span>より整備された構造を提供します。
+</span><span>
+</span><span style=color:#bf616a>- 事前定義されたフォルダ構造
+</span><span style=color:#bf616a>- サンプルコンポーネント
+</span><span style=color:#bf616a>- ビューやページのための推奨構成
+</span><span style=color:#bf616a>- アプリケーション構築のためのより構造化されたアプローチ
+</span><span style=color:#bf616a>
+</span><span>最初からいくつかのベストプラクティスを組み込みたい場合に便利です。
+</span><span>
+</span><span style=color:#8fa1b3>## 3. Workspace（ワークスペース）
+</span><span>
+</span><span>最も包括的なオプションです。
+</span><span>
+</span><span style=color:#bf616a>- 異なるプラットフォーム（ウェブ、デスクトップ、モバイル）用の個別のクレートを持つ完全な Cargo ワークスペースを作成
+</span><span style=color:#bf616a>- プラットフォーム固有のコードを維持しながら共通コンポーネントを共有する必要があるクロスプラットフォームアプリケーションに適している
+</span><span style=color:#bf616a>
+</span><span style=color:#8fa1b3>## 選択後のプロセス
+</span><span>
+</span><span>サブテンプレートを選択した後、CLI は通常以下のような追加の設定質問をします：
+</span><span>
+</span><span style=color:#bf616a>- Dioxus Fullstack を使用するかどうか
+</span><span style=color:#bf616a>- Dioxus Router を使用するかどうか
+</span><span style=color:#bf616a>- Tailwind CSS を使用するかどうか
+</span><span style=color:#bf616a>- デフォルトのプラットフォーム（ウェブ、デスクトップなど）
+</span><span style=color:#bf616a>
+</span><span style=color:#8fa1b3>## 推奨
+</span><span>
+</span><span>ポモドーロタイマーのような比較的シンプルなアプリケーションを構築する場合は、Bare-Bones テンプレートで十分かもしれません。複数のビューやコンポーネントを持つより複雑なアプリケーションを計画している場合は、Jumpstart テンプレートがより良い初期構造を提供します。ウェブ、デスクトップ、潜在的にモバイルで動作するクロスプラットフォームアプリケーションを作成する予定がある場合は、Workspace テンプレートが最も適しています。
+</span></code></pre></div><div class=post-tags><a class=tag href=/tags/rust>#Rust </a><a class=tag href=/tags/dioxus>#Dioxus </a><a class=tag href=/tags/netlify>#Netlify </a></div></article></main><footer><hr><div id=footer-container><p>Made using <a rel="noopener noreferrer" href=https://github.com/Speyll/anemone target=_blank>anemone</a> Zola theme</div></footer><script defer src=https://hebinoashi.netlify.app/js/script.js></script>
